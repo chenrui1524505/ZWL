@@ -56,7 +56,7 @@ $(document).ready(function(){
                 //$("#imgtest").attr("src", "data:image/gif;base64," + _userInfo.object.headPortrait);
 
                 var expiresDate= new Date();
-                expiresDate.setTime(expiresDate.getTime() + (720 * 60 * 1000));
+                expiresDate.setTime(expiresDate.getTime() + (72000 * 60 * 1000));
 
 
                 var selectConfig = Api.selectConfig(_userInfo.object.campusId);
