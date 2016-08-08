@@ -83,7 +83,7 @@ $(function(){
 				if(_minute.length > 0){
 					for(var m = 0 ; m < _minute.length ; m++){
 						var _minute_This = _minute.eq(m);
-						if(_minute_This.text() == _dateTimes[1]){
+						if(_minute_This.text() == _m){
 							_minute_This.addClass("active");
 						}
 					}

@@ -5,10 +5,10 @@
     <p class="item-txt">预约人数<span ng-bind="roomReservation.totalPeople"></span>人,已签到<span ng-bind="roomReservation.roomReservationList[0].arrivalPeopleNumber"></span>人</p>
     <p class="item-txt">预约码：<span ng-bind="roomReservation.roomReservationList[0].identifyCode"></span></p>
     <div ng-if="roomReservation.roomReservationList[0].notArrive == 1">
-        <p class="item-txt">距离签到时间<span class="c-p"ng-bind="roomReservation.roomReservationList[0].ct"></span></p>
+        <p class="item-txt">距离签到时间<span class="c-p"ng-bind="roomReservation.roomReservationList[0].ct" id="{{roomReservation.roomReservationList[0].timeid}}"></span></p>
     </div>
     <div ng-if="roomReservation.roomReservationList[0].notArrive == 2">
-        <p class="item-txt">距离离席时间<span class="c-p"ng-bind="roomReservation.roomReservationList[0].toEndTime"></span></p>
+        <p class="item-txt">距离离席时间<span class="c-p"ng-bind="roomReservation.roomReservationList[0].toEndTime" id="{{roomReservation.roomReservationList[0].timeid}}"></span></p>
     </div>
 
     <ul class="row mt-1">

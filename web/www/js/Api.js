@@ -191,44 +191,6 @@ window["Api"]["selectResearchRoom"] = function (buildingId,userId){
     return arg;
 };
 
-/**
- * 预约研修室
- * @param userId
- * @param roomed
- * @param totalPeople
- * @param reservationDate
- * @param beginTime
- * @param endTime
- * @returns {string}
- */
-/*window["Api"]["addReservation"] = function (userId,roomed,totalPeople,reservationDate,beginTime,endTime){
-    var arg = "" ;
-
-    $.ajax({
-        type	:	"POST",
-        data    :   {
-            "userId":userId,
-            "roomed":roomed,
-            "totalPeople":totalPeople,
-            "reservationDate":reservationDate,
-            "beginTime":beginTime,
-            "endTime":endTime
-        },
-        url		:	g.ContextPath + "researchRoom/addReservation",
-        async	:	false,
-        success	:	function(res){
-            if(res){
-                arg = res;
-            }
-        },
-        error:function(e) {
-            console.log(e);
-            return null;
-        }
-    });
-
-    return arg;
-}*/
 
 /**
  * 查询某教室匹配的座位
@@ -724,6 +686,50 @@ window["Api"]["addSeatByrandom"] = function (buildingId,reservationBeginTime,res
         "url":g.ContextPath + "reservation/addSeatByrandom",
         "userInfoId":userInfo.userInfoId,
         "buildingId":buildingId,
+        "reservationBeginTime":reservationBeginTime,
+        "reservationEndTime":reservationEndTime,
+        "campusId":userInfo.campusId,
+        "Authorization":userInfo.token
+    };
+    $.ajax({
+
+        type: "post",
+        url		:	 "../WebAction/Api/requestApi",
+        async	:	false,
+        dataType : "json",
+        data    : {
+            "data" : JSON.stringify(dataS)
+        },
+        success	:	function(res){
+            if(res){
+                arg = res;
+            }
+        },
+        error:function(e) {
+            console.log(e);
+            return null;
+        }
+
+    });
+
+    return arg;
+};
+
+/**
+ * 随机分配：在层数
+ * @param buildingId
+ * @param reservationBeginTime
+ * @param reservationEndTime
+ * @returns {string}
+ */
+window["Api"]["addSeatRandomByFloor"] = function (buildingId,floor,reservationBeginTime,reservationEndTime){
+    var arg = "" ;
+    var userInfo = g.userInfo();
+    var dataS = {
+        "url":g.ContextPath + "reservation/addSeatByrandom",
+        "userInfoId":userInfo.userInfoId,
+        "buildingId":buildingId,
+        "floor":floor,
         "reservationBeginTime":reservationBeginTime,
         "reservationEndTime":reservationEndTime,
         "campusId":userInfo.campusId,

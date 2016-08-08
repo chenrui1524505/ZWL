@@ -12,7 +12,7 @@ downloadApp.controller("downloadCtrl",function ($scope) {
     }
     var uri = android.url;
     $scope.androidClick = function () {
-        window.open(uri);
+        window.location = uri;
     }
 
 })

@@ -46,18 +46,19 @@ SeatRandomApp.controller("seatsSubmitCtrl",function($scope,SeatRandomService){
         srs.reservationEndTime = reservationEndTime;
         srs.userInfoId = userInfoId;
         srs.type = "srs";
+        srs.backHtml = "randomSeat";
 
         $.cookie("SubmitInfo",JSON.stringify(srs),{path : "/"});
 
         window.location = "subscribeConfirm.html";
 
 
-    }
+    };
 
     $scope.seatsRandom = function () {
         //$("body").html("asdfasdfasdf");//等待提示
         window.location = window.location.href;
-    }
+    };
 
 });
 
@@ -82,9 +83,15 @@ SeatRandomApp.factory("SeatRandomService",function(){
         var subscribeDate = g.toJson($.cookie("subscribeDate"));
         factory.reservationBeginTime = subscribeDate.reservationBeginTime;
         factory.reservationEndTime = subscribeDate.reservationEndTime;
-        return Api.addSeatByrandom(subscribeDate.LibraryVal,factory.reservationBeginTime,factory.reservationEndTime);
+        
+        //return Api.addSeatByrandom(subscribeDate.LibraryVal,factory.reservationBeginTime,factory.reservationEndTime);
+        var _floor = 0;
+        if(subscribeDate.studyLoungeFloor){
+            _floor = subscribeDate.studyLoungeFloor;
+        }
+        return Api.addSeatRandomByFloor(subscribeDate.LibraryVal,_floor,factory.reservationBeginTime,factory.reservationEndTime);
 
-    }
+    };
 
     /**
      * 初始化座位列表
@@ -103,7 +110,8 @@ SeatRandomApp.factory("SeatRandomService",function(){
         var SeatForm = g.toJson(subscribeDate);
 
         var seatNum = rsi.object.seatNum;
-        
+        var SubmitInfo = g.toJson($.cookie("SubmitInfo"));
+
         var _html = "<div class=\"seat-wrap\" id=\"seat\" style='margin:50px 50px;'>";
 
         if(SeatForm){
@@ -133,7 +141,7 @@ SeatRandomApp.factory("SeatRandomService",function(){
                     for( var s = 0 ; s < Seats.length ; s++){
 
                         if(Seats[s].columnNum == array[a].num   ){
-                            g_count++
+                            g_count++;
                             var state = Seats[s].state;
                             var stateClass;
 

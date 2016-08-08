@@ -37,8 +37,17 @@ ConfirmApp.controller("ConfirmCtrl",function ($scope) {
 
     $scope.boy = function(){
         isRecommend = true;
-    }
+    };
 
+    $scope.backHtml = function(){
+        if(SubmitInfo){
+            if(SubmitInfo.backHtml){
+                window.location = SubmitInfo.backHtml + ".html";
+                return null;
+            }
+        }
+        window.location = "subscribe.html";
+    };
 
     $scope.submit = function(){
         var apire;
@@ -49,7 +58,8 @@ ConfirmApp.controller("ConfirmCtrl",function ($scope) {
         }
 
         if(apire.success){
-            $.removeCookie("SubmitInfo",{path : "/"})
+            $.removeCookie("SubmitInfo",{path : "/"});
+            $.removeCookie("subscribeDate",{path : "/"})
             window.location = "index.html";
         }else{
             mui.toast(apire.message);

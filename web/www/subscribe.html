@@ -46,7 +46,7 @@
 								<div class="select">
 									<select id="studyLoungeName" >
 										<option value="" selected> </option>
-										<option ng-repeat="sl in studyLounge" value="{{sl.classroomId}}"ng-bind="sl.classroomNum"> </option>
+										<option ng-repeat="sl in studyLounge" floor="{{sl.floor}}" value="{{sl.classroomId}}"ng-bind="sl.classroomNum"> </option><!--classroomId-->
 									</select>
 								</div>
 							</div>
@@ -131,7 +131,7 @@
 		    <div class="row">
 		        <div class="col v-m">
 					<div class="modal-title">
-						<a href="#modal-close" title="Close" class="modal-close"></a>
+						<a href="#modal-close" title="Close" style="top: -1rem;" class="modal-close"></a>
 					</div>
 		        	<div class="modal-title row">
 		        		<h2 class="col" style="padding-left:2rem;width:65%;">小时    (24小时制)</h2>

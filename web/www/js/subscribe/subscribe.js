@@ -421,6 +421,7 @@ subscribeApp.factory("subscribeService",function () {
            var LibraryName = Library.text();
            var LibraryVal = Library.val();
 
+
            if(!LibraryName || !LibraryVal){
                factory.alertError("请选择图书馆！");
                return false;
@@ -428,6 +429,7 @@ subscribeApp.factory("subscribeService",function () {
 
            var studyLoungeName = studyLounge.text();
            var studyLoungeVal = studyLounge.val();
+           var studyLoungeFloor = studyLounge.attr("floor");
 
            if(arg != "randomSeat") {
 
@@ -440,6 +442,7 @@ subscribeApp.factory("subscribeService",function () {
 
            bean.LibraryVal = LibraryVal;
            bean.studyLoungeVal = studyLoungeVal;
+           bean.studyLoungeFloor = studyLoungeFloor;
 
            $.cookie("subscribeDate",JSON.stringify(bean), {  path: '/' });//预约的时间
 

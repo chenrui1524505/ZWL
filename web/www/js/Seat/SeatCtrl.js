@@ -30,6 +30,7 @@ SeatApp.controller("seatsSubmitCtrl",function($scope,SeatService){
         srs.reservationEndTime = reservationEndTime;
         srs.userInfoId = userInfoId;
         srs.type = "os";
+        srs.backHtml = "optionalSeat";
 
         if(!seatId){
             alert("请选择座位！");
