@@ -28,6 +28,7 @@ $(function(){
 	})
 
 	$(".dateChange").click(function(){
+
 		var _hour = $(".hour span");
 		for(var h = 0 ; h < _hour.length ; h++){
 			_hour.eq(h).removeClass("active");
@@ -49,18 +50,30 @@ $(function(){
 			}
 
 			if(_dateTime.indexOf(":") > -1){
-				var _dateTimes = _dateTime.split(":");
-				var _m = _dateTimes[1];
-				console.log(_m % 10);
 
-				$("#hour").text(_dateTimes[0]);
-				$("#min").text(_dateTimes[1]);
+				var _dateTimes = _dateTime.split(":");
+				var _h = _dateTimes[0];
+				var _m = _dateTimes[1];
+
+				if(_m % 10 != 0){
+					_m = parseInt(_m)+ 10 - _m % 10;
+					if(_m >= 60){
+						_m = "00";
+						_h = parseInt(_h) + 1;
+						if(parseInt(_h) >= 24){
+							_h = "00";
+						}
+					}
+				}
+
+				$("#hour").text(_h);
+				$("#min").text(_m);
 
 				var _hour = $(".hour span");
 				if(_hour.length > 0){
 					for(var h = 0 ; h < _hour.length ; h++){
 						var _hour_This = _hour.eq(h);
-						if(_hour_This.text() == _dateTimes[0]){
+						if(_hour_This.text() == _h){
 							_hour_This.addClass("active");
 						}
 					}
