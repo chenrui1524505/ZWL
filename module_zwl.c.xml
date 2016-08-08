@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_zwl.c" default="compile.module.zwl.c">
+  <dirname property="module.zwl.c.basedir" file="${ant.file.module_zwl.c}"/>
+  
+  <property name="module.jdk.home.zwl.c" value="${jdk.home.1.6}"/>
+  <property name="module.jdk.bin.zwl.c" value="${jdk.bin.1.6}"/>
+  <property name="module.jdk.classpath.zwl.c" value="jdk.classpath.1.6"/>
+  
+  <property name="compiler.args.zwl.c" value="-encoding UTF-8 -source 1.6 -target 1.6 ${compiler.args}"/>
+  
+  <property name="zwl.c.output.dir" value="${module.zwl.c.basedir}/../out"/>
+  <property name="zwl.c.testoutput.dir" value="${module.zwl.c.basedir}/../out"/>
+  
+  <path id="zwl.c.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="zwl.c.module.production.classpath">
+    <path refid="${module.jdk.classpath.zwl.c}"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-codec-1.4.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-lang-2.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/ezmorph-1.0.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/servlet-api.jar"/>
+  </path>
+  
+  <path id="zwl.c.runtime.production.module.classpath">
+    <pathelement location="${zwl.c.output.dir}"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-codec-1.4.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-lang-2.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/ezmorph-1.0.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/servlet-api.jar"/>
+  </path>
+  
+  <path id="zwl.c.module.classpath">
+    <path refid="${module.jdk.classpath.zwl.c}"/>
+    <pathelement location="${zwl.c.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-codec-1.4.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-lang-2.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/ezmorph-1.0.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/servlet-api.jar"/>
+  </path>
+  
+  <path id="zwl.c.runtime.module.classpath">
+    <pathelement location="${zwl.c.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-codec-1.4.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-collections-3.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-lang-2.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/commons-logging.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/ezmorph-1.0.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/servlet-api.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.zwl.c">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.zwl.c">
+    <patternset refid="excluded.from.module.zwl.c"/>
+  </patternset>
+  
+  <path id="zwl.c.module.sourcepath">
+    <dirset dir="${module.zwl.c.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.zwl.c" depends="compile.module.zwl.c.production,compile.module.zwl.c.tests" description="Compile module ZWL.C"/>
+  
+  <target name="compile.module.zwl.c.production" depends="register.custom.compilers" description="Compile module ZWL.C; production classes">
+    <mkdir dir="${zwl.c.output.dir}"/>
+    <javac2 destdir="${zwl.c.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.zwl.c}/javac">
+      <compilerarg line="${compiler.args.zwl.c}"/>
+      <bootclasspath refid="zwl.c.module.bootclasspath"/>
+      <classpath refid="zwl.c.module.production.classpath"/>
+      <src refid="zwl.c.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.zwl.c"/>
+    </javac2>
+    
+    <copy todir="${zwl.c.output.dir}">
+      <fileset dir="${module.zwl.c.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.zwl.c.tests" depends="register.custom.compilers,compile.module.zwl.c.production" description="compile module ZWL.C; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.zwl.c" description="cleanup module">
+    <delete dir="${zwl.c.output.dir}"/>
+    <delete dir="${zwl.c.testoutput.dir}"/>
+  </target>
+</project>

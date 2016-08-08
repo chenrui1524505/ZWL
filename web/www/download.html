@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="App">
+	<head>
+		<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta charset="UTF-8">
+		<title>App下载</title>
+		<link rel="stylesheet" href="../www/css/mui.min.css" />
+		<link rel="stylesheet" href="../www/css/main.css" />
+		<script src="../www/js/jquery-1.7.1.min.js"></script>
+		<script src="../www/js/g.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app has-head app-sub white" ng-controller="downloadCtrl">
+			<div class="app-head">
+				<a class="left" href="settings.html"></a>
+				<h1 class="title">App下载</h1>
+				<a class="right" href="#"></a>
+			</div>
+			<div class="app-view">
+				<div class="app-view-content pad-1">
+					<div class="row" style="height:70%;">
+						<div class="col v-m t-c">
+							<img src="img/app-logo.png" style="width:10rem;" />
+							<p style="font-size:1rem;color:#808080;margin:2rem 0 1rem 0;" >安卓 V<span ng-bind="android">8.021</span>版</p>
+							<p style="font-size:1rem;color:#808080;" >IOS V<span ng-bind="ios">8.021</span>版</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-50" style="padding-right:0.5rem;">
+							<a href="javaScript:void(0);" class="btn btn-conner btn-pink btn-block mt-2">IOS 版下载</a>
+						</div>
+						<div class="col col-50" style="padding-left:0.5rem;">
+							<a href="javaScript:void(0);" class="btn btn-conner btn-blue btn-block mt-2"ng-click="androidClick();">安卓版下载</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script src="js/angular.js"></script>
+	<script src="js/download/download.js"></script>
+	</body>
+</html>

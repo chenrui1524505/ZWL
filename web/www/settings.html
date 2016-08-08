@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="App">
+	<head>
+		<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta charset="UTF-8">
+		<title>系统设置</title>
+		<link rel="stylesheet" href="../www/css/mui.min.css" />
+		<link rel="stylesheet" href="../www/css/main.css" />
+		<script src="../www/js/jquery-1.7.1.min.js"></script>
+		<script src="../www/js/g.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app has-head">
+			<div class="app-head">
+				<h1 class="title">系统设置</h1>
+				<a class="right" href="#"></a>
+			</div>
+			<div class="app-view has-footer">
+				<div class="app-view-content">
+					<div class="setting-list">
+						<a class="row" href="modifyPassword.html">
+							<span class="col v-m">
+								<img src="img/icon-password1.png" align="absmiddle"/>修改密码
+							</span>
+							<span class="col v-m"></span>
+						</a>
+						<a class="row" href="download.html">
+							<span class="col v-m">
+								<img src="img/icon-phone.png" align="absmiddle"/>APP手机版
+							</span>
+							<span class="col v-m">手机版支持更多功能</span>
+						</a>
+						<a class="row">
+							<span class="col v-m">
+								<img src="img/icon-book.png" align="absmiddle"/>版本号
+							</span>
+							<span class="col v-m">v8.2016.51</span>
+						</a>
+					</div>
+				</div>
+				<div class="do-area" ng-controller="settingsCtrl">
+					<div class="row">
+						<div class="col v-m">
+							<a class="btn btn-block btn-pink btn-conner" ng-click="out();" href="javaScript:void(0);">安全退出</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="app-footer">
+				<div class="nav row">
+					<a class="col " href="index.html">首页</a>
+					<a class="col" href="subscribe.html">预约</a>
+					<a class="col " href="record.html">记录</a>
+					<a class="col active" href="settings.html">设置</a>
+				</div>
+			</div>
+		</div>
+	<script src="js/angular.js"></script>
+	<script src="js/settings/settings.js"></script>
+	</body>
+</html>

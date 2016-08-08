@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html ng-app="App">
+	<head>
+		<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta name = "format-detection" content = "telephone=no">
+		<meta charset="UTF-8">
+		<title>预约座位</title>
+		<link rel="stylesheet" href="../www/css/mui.min.css" />
+		<link rel="stylesheet" href="../www/css/main.css" />
+		<script src="../www/js/jquery-1.7.1.min.js"></script>
+		<script src="../www/js/g.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app has-head">
+			<div class="app-head">
+				<h1 class="title">预约座位</h1>
+				<a class="right" href="#"></a>
+			</div>
+			<div class="app-view has-footer" ng-controller="CampusAndBuildingCtrl">
+				<div class="app-view-content">
+					<div class="app-banel">
+						<div class="form-line">
+							<span class="tag">类&nbsp;&nbsp;&nbsp;型</span>
+							<div class="pl-5">
+								<input type="radio" id="radio-1-1" name="sex" class="regular-radio" ng-model="model" ng-change="radioClick(model);"  ng-checked="true"  value="0"/><span></span>
+								<label for="radio-1-1">自习室</label>
+								<input type="radio" id="radio-1-2" name="sex"  class="regular-radio" ng-model="model" ng-change="radioClick(model);" value="1"  /><span></span>
+								<label for="radio-1-2">研修室</label>
+
+							</div>
+						</div>
+						<div class="radio-item" style="display:block;"   >
+							<div class="form-line">
+								<span class="tag">图书馆</span>
+								<div class="select">
+									<select id="LibraryName" ng-model="select_Value" ng-change="V_change(select_Value)">
+										<option value="" selected> </option>
+										<option ng-repeat="lb in subscribeList" value="{{lb.buildingId}}" ng-bind="lb.buildingName"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-line">
+								<span class="tag">自习室</span>
+								<div class="select">
+									<select id="studyLoungeName" >
+										<option value="" selected> </option>
+										<option ng-repeat="sl in studyLounge" value="{{sl.classroomId}}"ng-bind="sl.classroomNum"> </option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="radio-item"  ><!--ng-controller="ResearchAndStudiesCtrl"-->
+							<div class="form-line">
+								<span class="tag">图书馆</span>
+								<div class="select">
+									<select ng-model="buildingIdModel" ng-change="buildingId_change(buildingIdModel)">
+										<option value="" selected> </option>
+										<option ng-repeat="ll in libraryList" value="{{ll.buildingId}}" ng-bind="ll.buildingName"> 致未来图书馆</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-line">
+								<span class="tag">研修室</span>
+								<div class="select">
+									<select id="select_RR" ng-model="select_RR" ng-change="RR_change(select_RR)">
+										<option value="" selected> </option>
+										<option ng-repeat="RR in ResearchRoom" value="{{RR.id}}" ng-bind="RR.name">1层测试自习室</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-line">
+								<span class="tag">总人数</span>
+								<div>
+									<input type="text" ng-change="peopleChange(peopleValue)" ng-model="peopleValue" class="input" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="app-banel">
+						<ul class="row day-pick" ><!--ng-controller="subscribeDateCtrl"-->
+							<li class="col t-c {{sd.active}} " ng-repeat="sd in subscribeDate" ng-click="checkDate($index)">
+								<a href="#" ><span ng-bind="sd.Weekday"></span><br/><span ng-bind="sd.date"></span></a>
+							</li>
+
+						</ul>
+						<div style="padding:0.5rem;">
+							<table class="wid-full time-pick">
+								<tr>
+									<th width="45%">起始时间</th>
+									<th width="10%"></th>
+									<th width="45%">截止时间</th>
+								</tr>
+								<tr>
+									<td><div class="date"><a href="#open-modal1" class="pickdate" name="起始时间" id="start">12:30:00</a></div></td>
+									<td>—</td>
+									<td><div class="date"><a href="#open-modal1" class="pickdate" name="截止时间" id="end">22:00:00</a></div></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="app-banel tipsfather" style="display: none">
+						<p class="tips" >07:00之后可以预约次日座位</p>
+					</div>
+				</div>
+				<div class="do-area" ng-controller="ChooseSeatCtrl">
+					<div class="row">
+						<div class="col v-m">
+							<a class="btn btn-conner btn-pink btn-block" href="javaScript:void(0);" ng-click="ChooseSeat('randomSeat')">机选座位</a><!--randomSeat.html-->
+						</div>
+						<div class="col v-m">
+							<a class="btn btn-conner btn-blue btn-block" href="javaScript:void(0);" ng-click="ChooseSeat('optionalSeat')">自选座位</a>
+						</div>
+						<div id="qd" class="col v-m" style="display: none;">
+							<a class="btn btn-conner btn-blue btn-block" href="javaScript:void(0);" ng-click="RRChooseSeat()">确定</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="app-footer">
+				<div class="nav row">
+					<a class="col " href="index.html">首页</a>
+					<a class="col active" href="subscribe.html">预约</a>
+					<a class="col " href="record.html">记录</a>
+					<a class="col " href="settings.html">设置</a>
+				</div>
+			</div>
+		</div>
+		<div id="open-modal1" class="modal-window">
+		    <div class="row">
+		        <div class="col v-m">
+		        	<div class="modal-title row">
+		        		<h2 class="col" style="padding-left:2rem;width:65%;">小时    (24小时制)</h2>
+		        		<p class="col" style="padding-left:4rem;text-align: left;">分钟</p>
+		        	</div>
+		        	<ul class="row">
+		        		<li class="col col-70 fs-0 hour" style="padding:0 2rem;border-right:1px dashed #fff;width:65%;">
+		        			<span class="time">6</span>
+		        			<span class="time">7</span>
+		        			<span class="time">8</span>
+		        			<span class="time">9</span>
+		        			<span class="time">10</span>
+		        			<span class="time">11</span>
+		        			<span class="time">12</span>
+		        			<span class="time">13</span>
+		        			<span class="time">14</span>
+		        			<span class="time">15</span>
+		        			<span class="time">16</span>
+		        			<span class="time">17</span>
+		        			<span class="time">18</span>
+		        			<span class="time">19</span>
+		        			<span class="time">20</span>
+		        			<span class="time">21</span>
+		        			<span class="time">22</span>
+		        			<span class="time">23</span>
+		        		</li>
+		        		<li class="col col-30 fs-0 minute" style="padding-left:2rem; width: 35%;padding-left:3rem;">
+		        			<span class="time">00</span>
+		        			<span class="time">10</span>
+		        			<span class="time">20</span>
+		        			<span class="time">30</span>
+		        			<span class="time">40</span>
+		        			<span class="time">50</span>
+		        		</li>
+		        	</ul>
+		        	<div class="row" style="padding:2rem;">
+		        		<div class="col pick-time v-m" style="width:50%;">
+		        			<h2>起始时间</h2>
+		        			<p><span id="hour">11</span>:<span id="min">20</span></p>
+		        		</div>
+		        		<div class="col" style="width:50%;vertical-align: bottom;">
+		        			<a href="#" class="btn btn-blue btn-conner btn-block" id="confirm">确定</a>
+		        		</div>
+		        	</div>
+		        </div>
+		    </div>
+		</div>
+		<div id="open-modal2" class="modal-window">
+			<div class="row">
+				<div class="col v-m">
+					<div class="modal-title">
+						<h2>错误提示</h2>
+						<a href="#modal-close" title="Close" class="modal-close"></a>
+					</div>
+					<img style="position:relative;left:1rem;" src="img/errors.png" />
+					<p>所选参数无法提交，请填写正确</p>
+				</div>
+			</div>
+		</div>
+		<script src="js/zepto_1.1.3.js"></script>
+		<script src="js/date.js"></script>
+		<script>
+			/*radio切换*/
+			$("input[type='radio']").change(function(){
+				var index=$("input[name='sex']:checked").val();
+				$(".radio-item").eq(index).show().siblings(".radio-item").hide();
+				if(index==1){
+					$("#qd").show().siblings().hide();
+					$("#inputRadio").val(index);
+				}else{
+					$("#qd").hide().siblings().show();
+					$("#inputRadio").val(index);
+				}
+			})
+			/*$(".day-pick").children().click(function(){
+				$(this).addClass("active").siblings().removeClass("active");
+			})*/
+		</script>
+		<script src="js/angular.js" charset="utf-8"></script>
+		<script src="js/subscribe/subscribe.js"></script>
+	</body>
+</html>
