@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="App">
+	<head>
+		<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta charset="UTF-8">
+		<title>确定预约</title>
+		<link rel="stylesheet" href="../www/css/mui.min.css" />
+		<link rel="stylesheet" href="../www/css/main.css" />
+		<script src="../www/js/jquery-1.7.1.min.js"></script>
+		<script src="../www/js/g.js" charset="utf-8"></script>
+		<script src="../www/js/mui.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app has-head app-sub" ng-controller="ConfirmCtrl">
+			<div class="app-head">
+				<a class="left" href="javaScript:void(0);" ng-click="backHtml()"></a><!--subscribe.html-->
+				<h1 class="title">确定预约</h1>
+				<a class="right" href="#"></a>
+			</div>
+			<div class="app-view has-footer" >
+				<div class="app-view-content">
+					<dl class="favior-list">
+						<dt><img src="img/ion-gps.png"/></dt>
+						<dd>
+							<h2>预约位置</h2>
+							<p ng-bind="name">致未来图书馆1层测试自习室</p>
+							<p ng-bind="space">15-26-3座位</p>
+						</dd>
+					</dl>
+					<dl class="favior-list">
+						<dt><img src="img/ion-date.png"/></dt>
+						<dd>
+							<h2>预约时间</h2>
+							<p>起始时间：<span ng-bind="beginTime">2016-06-08  10:45:00</span></p>
+							<p>结束时间：<span ng-bind="endTime">2016-06-08  12:00:00</span></p>
+						</dd>
+					</dl>
+					<dl class="favior-list">
+						<dt><img src="img/ion-date.png"/></dt>
+						<dd>
+							<h2>推荐时间</h2>
+							<p>起始时间：<span ng-bind="recommendBeginTime">2016-06-08  10:30:00</span></p>
+							<p>结束时间：<span ng-bind="recommendEndTime">2016-06-08  12:00:00</span></p>
+							<div class="app-radio">
+					            <input type="radio" name="sex" id="boy"  ng-click="boy();"/>
+					            <span></span>
+					            <label for="boy">选择推荐时间</label>
+					        </div>
+						</dd>
+					</dl>
+				</div>
+				<div class="do-area row">
+					<div class="col v-m">
+						<a class="btn btn-conner btn-block btn-blue" href="javaScript:void(0);" ng-click="submit();">确定</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script src="js/angular.js"></script>
+	<script src="js/subscribe/subscribeConfirm.js"></script>
+	</body>
+</html>

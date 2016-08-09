@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>微信JS-SDK Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+</head>
+<body >
+<input type="button" onclick="test()"/>
+<div id="test" >
+</div>
+</body>
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/g.js" charset="utf-8"></script>
+<script src="js/jweixin-1.0.0.js"></script>
+<script src="js/scanQRCode.js"></script>
+<script>
+    function test(){
+        wx.scanQRCode({
+            needResult: 2,
+            desc: 'scanQRCode desc',
+            success: function (res) {
+
+                var rs = res.resultStr;
+                $("#test").html(rs);
+            }
+        });
+    }
+</script>
+
+</html>

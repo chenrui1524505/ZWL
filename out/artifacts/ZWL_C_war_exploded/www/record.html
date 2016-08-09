@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html ng-app="App">
+	<head>
+		<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta charset="UTF-8">
+		<title>记录</title>
+
+		<link rel="stylesheet" href="../www/css/mui.min.css" />
+		<link rel="stylesheet" href="../www/css/main.css" />
+		<script src="../www/js/jquery-1.7.1.min.js"></script>
+
+		<script src="../www/js/g.js" charset="utf-8"></script>
+		<script src="../www/js/mui.js" charset="utf-8"></script>
+<style>
+
+	/*.nav-foot {
+		 width:100%;
+		 margin:0 auto;
+		 position:fixed;
+		 bottom:0;
+	}
+	.nav-foot , .nav-head{
+		z-index: 99999;
+	}
+	.nav-head {
+		width:100%;
+		margin:0 auto;
+		position:fixed;
+		top:0;
+	}
+	.nav-3rm{
+		top: 3rem;
+	}*/
+</style>
+	</head>
+	<body>
+		<div class="app has-head">
+			<div class="app-head "><!--nav-head-->
+				<h1 class="title">记录</h1>
+				<a class="right" href="#"></a>
+			</div>
+			<div class="app-view has-head " ng-controller="recordCtrl">
+				<div class="app-view-head bg-b plr-1 row "><!--nav-head nav-3rm-->
+					<div class="col v-m">
+						<ul class="row">
+							<li class="col v-m">
+								<a id="zxs" class="btn btn-opatiy btn-conner btn-block c-b" ng-click="zxs();" href="javaScript:void(0);">自习室记录</a>
+							</li>
+							<li class="col t-r v-m">
+								<a id="yxs" class="btn btn-opatiy btn-conner btn-block c-gray"ng-click="yxs();" href="javaScript:void(0);">研修室记录</a>
+							</li>
+						</ul>
+						<p>您本年度已有<span ng-bind="getout"></span>次违规<br>请保持良好的诚信记录</p>
+					</div>
+				</div>
+				<div class="app-view-content " style="overflow: hidden;"  id="pullRefresh">
+					<div>
+					<ul class="txt-list" ><!--before after-->
+						<li ng-repeat="rl in recordList">
+							<p ng-bind="rl.date + ' ' + rl.time"></p>
+							<h2 ng-bind="rl.info">东区图书馆05自习室15-59-3座位</h2>
+							<h2 style="color:red;" ng-bind="rl.stateInfo"></h2>
+							<span ng-class="rl.stateClass"></span>
+						</li>
+					</ul>
+					</div>
+				</div>
+			</div>
+			<div class="app-footer "><!--nav-foot-->
+				<div class="nav row">
+					<a class="col " href="index.html">首页</a>
+					<a class="col" href="subscribe.html">预约</a>
+					<a class="col active" href="record.html">记录</a>
+					<a class="col" href="settings.html">设置</a>
+				</div>
+			</div>
+		</div>
+		<script src="js/angular.js" charset="utf-8"></script>
+		<script src="js/record/record.js"></script>
+		<script>
+			$(document).ready(function(){
+				mui.init({
+					pullRefresh : {
+						container:"#pullRefresh",//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+						up : {
+							height:50,//可选.默认50.触发上拉加载拖动距离
+							contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+							contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+							callback :pullfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+						}
+					}
+				});
+				function pullfresh() {
+					setTimeout(function() {
+						if(moreData.flag){
+
+							var PageNumCount = Math.ceil(moreData.pageCount / moreData.pageSize);
+
+							var flag = false;
+
+							var nextPageNum = parseInt(moreData.pageNum) + 1;
+
+							if( nextPageNum <= PageNumCount){
+								var srv;
+								if(moreData.type == 1 ){
+									var zxsState = $.cookie("zxsState");
+									zxsState = zxsState ? zxsState : 0 ;
+
+									pageSize = moreData.pageSize;
+									pageNum = nextPageNum;
+
+									srv = zxs(zxsState,nextPageNum,moreData.pageSize);
+								}else if(moreData.type == 2){
+									srv = Api.selectRoomReservation(nextPageNum,moreData.pageSize);
+									if(srv.success){
+										srv = srv.lists;
+									}else{
+										srv = false;
+									}
+								}
+
+								//console.log(srv);
+								if(srv){
+
+									/*var srvInfo = srv.list;
+									if(typeof srvInfo == "undefined"){
+										srvInfo = srv.lists;
+									}*/
+
+									moreData.pageNum = nextPageNum;
+
+									if(srv.length > 0){
+										var html = "<div class='temp'>";
+										for(var s = 0 ; s < srv.length ; s++){
+											var redate = srv[s].date;
+											var date = typeof redate == 'undefined' ? '' : redate;
+											html += 	"<li >";
+											html +=			"<p>"+ date + " " + srv[s].time+"</p>";
+											html +=			"<h2>" + srv[s].info+"</h2>";
+																if(parseInt(srv[s].state) != 1 && moreData.type == 1){
+																	html += "<h2 style='color: red;'>" + srv[s].stateInfo+"</h2>";
+																}
+											html +=			"<span class=\""+srv[s].stateClass+"\"></span>";
+											html +=		"</li> ";
+
+										}
+										$(".txt-list").append(html+"</div>");
+
+									}
+
+								}else {
+									flag = true;
+								}
+
+							}else {
+								flag = true;
+							}
+
+
+							//注意：flag = true 为没有更多
+							mui('#pullRefresh').pullRefresh().endPullupToRefresh(flag);
+
+						}
+
+					},500);
+				}
+
+			});
+
+		</script>
+	</body>
+</html>
