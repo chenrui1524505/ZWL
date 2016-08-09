@@ -34,7 +34,7 @@
 						<div class="radio-item" style="display:block;"   >
 							<div class="form-line">
 								<span class="tag">图书馆</span>
-								<div class="select">
+								<div class="select form">
 									<select id="LibraryName" ng-model="select_Value" ng-change="V_change(select_Value)">
 										<option value="" selected> </option>
 										<option ng-repeat="lb in subscribeList" value="{{lb.buildingId}}" ng-bind="lb.buildingName"></option>
@@ -43,7 +43,7 @@
 							</div>
 							<div class="form-line">
 								<span class="tag">自习室</span>
-								<div class="select">
+								<div class="select form">
 									<select id="studyLoungeName" >
 										<option value="" selected> </option>
 										<option ng-repeat="sl in studyLounge" floor="{{sl.floor}}" value="{{sl.classroomId}}"ng-bind="sl.classroomNum"> </option><!--classroomId-->
@@ -54,7 +54,7 @@
 						<div class="radio-item"  ><!--ng-controller="ResearchAndStudiesCtrl"-->
 							<div class="form-line">
 								<span class="tag">图书馆</span>
-								<div class="select">
+								<div class="select form">
 									<select ng-model="buildingIdModel" ng-change="buildingId_change(buildingIdModel)">
 										<option value="" selected> </option>
 										<option ng-repeat="ll in libraryList" value="{{ll.buildingId}}" ng-bind="ll.buildingName"> 致未来图书馆</option>
@@ -63,7 +63,7 @@
 							</div>
 							<div class="form-line">
 								<span class="tag">研修室</span>
-								<div class="select">
+								<div class="select form">
 									<select id="select_RR" ng-model="select_RR" ng-change="RR_change(select_RR)">
 										<option value="" selected> </option>
 										<option ng-repeat="RR in ResearchRoom" value="{{RR.id}}" ng-bind="RR.name">1层测试自习室</option>

@@ -1,7 +1,7 @@
 
 
 
-var timestamp,nonceStr,signature;
+var timestamp,nonceStr,signature,AppID;
 
 var ChatConfig = Api.ApplyWeChatConfig();
 if(ChatConfig && ChatConfig.Success){
@@ -10,13 +10,14 @@ if(ChatConfig && ChatConfig.Success){
         timestamp = result.SystemTime;
         nonceStr = result.nonceStr;
         signature = result.Signature;
+        AppID = result.AppID;
     }
 
 }
 
 wx.config({
     debug: false,
-    appId: 'wxc13823a96ab80a9b',
+    appId: AppID,
     timestamp: timestamp,
     nonceStr: nonceStr,
     signature: signature,

@@ -25,9 +25,9 @@ public class WeChatApi {
 
         String url ="https://api.weixin.qq.com/cgi-bin/token";
         Map<String ,String> params= new HashMap<String,String>();
-        params.put("grant_type", "client_credential");
-        params.put("appid", "wxc13823a96ab80a9b");
-        params.put("secret", "b6319aa98e47ac78871da7231041bd3b");
+        params.put("grant_type", grant_type);
+        params.put("appid", AppID);
+        params.put("secret", AppSecret);
         String str = WebHttp.doPost(url, params , null);
 
         return str;
@@ -105,6 +105,7 @@ public class WeChatApi {
             json.put("Signature",Signature);
             json.put("nonceStr",nonceStr);
             json.put("SystemTime",SystemTime);
+            json.put("AppID",AppID);
 
             re.put("Success",State.SUCCESS_IS_TRUE);
             re.put("result",json);
