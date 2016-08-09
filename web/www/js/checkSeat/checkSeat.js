@@ -124,7 +124,7 @@ checkSeatApp.factory("checkSeatService",function(){
 
 $(document).ready(function(){
     var target = document.getElementById("seat");
-
-    $(target).css('-webkit-transform',"matrix(1,0,0,1,"+ parseInt(g.getCountWidth(g_w)) +","+ parseInt(g.getCountHeight(g_h)) +")");
-
+    if(target){
+        $(target).css('-webkit-transform',"matrix(1,0,0,1,"+ parseInt(g.getCountWidth(g_w)) +","+ parseInt(g.getCountHeight(g_h)) +")");
+    }
 });
