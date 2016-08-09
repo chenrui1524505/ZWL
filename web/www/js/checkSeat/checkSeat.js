@@ -2,7 +2,7 @@
  * Created by Lix on 2016-7-9.
  */
 //checkSeatCtrl
-
+var g_count , g_h , g_w;
 var checkSeatApp = angular.module("App",[]);
 
 checkSeatApp.controller("checkSeatCtrl",function ($scope) {
@@ -35,7 +35,7 @@ checkSeatApp.factory("checkSeatService",function(){
         var seatNum = checkSeatInfo.seatNum;
         var ss = 150; //style='transform:translateX("+ss+"px);'
 
-        var _html = "<div class=\"seat-wrap\" id=\"seat\"  style='margin:50px 50px;transform:translateX("+g.getCountWidth(seatNum)+"px);'>";
+        var _html = "<div class=\"seat-wrap\" id=\"seat\">";
 
         if (checkSeatInfo) {
             var SeatInfo = Api.SeatsInfo(checkSeatInfo.classroomId, checkSeatInfo.sreservationBeginTime, checkSeatInfo.sreservationEndTime);
@@ -58,8 +58,11 @@ checkSeatApp.factory("checkSeatService",function(){
 
                 for (var a = 0; a < array.length; a++) {
                     _html += "<ul>";
+                    g_count = 0;
                     for (var s = 0; s < Seats.length; s++) {
                         if (Seats[s].columnNum == array[a].num) {
+                            g_count++;
+
                             var span = "";
                             var spanClass = "";
 
@@ -99,7 +102,10 @@ checkSeatApp.factory("checkSeatService",function(){
                             if(state == 3){
                                 state_css = "seat_yes unOptional selected "+sex_type+"full"+leaveFlag_css;
                             }
-
+                            if(seatNum == Seats[s].seatNum && state != 0){
+                                g_h = g_count;//计算出随机座位的真实行
+                                g_w = a+1;//计算出随机座位的真实列
+                            }
 
 
                             _html += "<LI class='" + state_css + spanClass +"' data='" + Seats[s].seatNum + " ' dataID=" + Seats[s].seatId + ">"+span+"</LI>";
@@ -112,6 +118,13 @@ checkSeatApp.factory("checkSeatService",function(){
             }
         }
         return _html + "</div>";
-    }
+    };
     return factory;
-})
+});
+
+$(document).ready(function(){
+    var target = document.getElementById("seat");
+
+    $(target).css('-webkit-transform',"matrix(1,0,0,1,"+ parseInt(g.getCountWidth(g_w)) +","+ parseInt(g.getCountHeight(g_h)) +")");
+
+});
