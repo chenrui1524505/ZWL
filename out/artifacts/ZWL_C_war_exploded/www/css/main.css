@@ -116,7 +116,7 @@ body{overflow:hidden;}
 .form-line .select select{padding-left:5rem;font-size:1.1rem;color:#B3B3B3;}
 .form-line .tag{position:absolute;left:0;width:5rem;display:inline-block;text-align:right;padding-right:1rem;height:3rem;line-height:3rem;font-size:1.15rem;color:#359DD9;}
 .pl-5{padding-left:5rem;}
-.form-line .pl-5{height:3rem;padding-top:0.5rem;}
+.form-line .pl-5{height:3rem;padding-top:0.2rem;}
 .form-line .app-radio{margin-right:1rem;color:#808080;font-size:0.9rem;}
 .select select:focus{border-color:#49B5FA;}
 
@@ -130,7 +130,7 @@ body{overflow:hidden;}
 .date input{height:2.5rem;line-height:2.5rem;border:1px solid #C9CACA;width:100%;color:#666666;font-size:1rem;background:#fff;}
 .time-pick th{text-align:center;color:#359DD9;font-size:1.15rem;height:2rem;font-weight:normal;}
 .time-pick td{text-align:center;color:#666666;}
-.tips{font-size:1rem;color:#EFBC32;padding-left:1.5rem;background:url(../img/ion-tips.png) no-repeat left center;height:2rem;line-height:2rem;background-size:1.2rem;margin:0;}
+.tips{font-size:1rem;color:#EFBC32;padding-left:1.5rem;background:url(../img/ion-tips.png) no-repeat left 3px;height:2rem;line-height:2rem;background-size:1.2rem;margin:0;}
 /*二级*/
 .app-view-content{height:100%;overflow:auto;box-sizing:border-box;}
 .do-area{height:4rem;padding:0 0.7rem;}
@@ -187,7 +187,7 @@ body{overflow:hidden;}
 .seat-wrap ul li.girl-half-hold{background-image:url(../img/001-05.svg);}
 .seat-wrap ul li.active , .seat-wrap ul li.activeme{background-image:url(../img/001-12.svg);}
 .seat-wrap ul li.active span{display:inline-block;width:3.6rem;height:3.8rem;position:absolute;top:-3.6rem;left:50%;margin-left:-1.8rem;background:url(../img/paopao.png) no-repeat center center;background-size:contain;z-index:10;}
-.seat-wrap ul li.active span img{width:3rem;height:3rem;margin-top:0.2rem;margin-left:0.3rem;border-radius: 50%;}
+.seat-wrap ul li.active span img{width:3rem;height:3rem;margin-top:0.2rem;margin-left:0.3rem;border-radius: 1.2rem;}
 .seat-wrap ul li.null{background:none;}
 .seat-content{overflow:hidden;}
 .seat-thumb{border:1px solid #898989;overflow:hidden;zoom:1;padding:0.2rem 0.3rem 0.3rem 0.2rem;display:inline-block;position:relative;}

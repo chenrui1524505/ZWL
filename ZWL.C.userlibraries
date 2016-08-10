@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="lib">
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/servlet-api.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/ezmorph-1.0.3.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-logging.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-lang-2.5.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-codec-1.4.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/json-lib-2.4-jdk15.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-logging-1.1.1.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-beanutils-1.7.0.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-collections-3.1.jar" />
+    <archive path="F:/IDEAWorkSpace/ZWL.C/web/WEB-INF/lib/commons-httpclient-3.0.1.jar" />
+  </library>
+</eclipse-userlibraries>
+
