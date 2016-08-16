@@ -37,9 +37,7 @@
 						<dd>
 							<h2>预约时间</h2>
 							<p>起始时间：<span ng-bind="sreservationBeginTime">2016-06-08  10:45:00</span></p>
-							<p>结束时间：<a class="span_Time date pickdate" href="#open-modal1" style="width: 55%;color: #666;" ng-bind="sreservationEndTime">2016-06-08  12:00:00</a></p>
-							<!--<span id="demo5" data-options="{&quot;type&quot;:&quot;time&quot;}" class="btn mui-btn mui-btn-block" style="border: 0;color:blue;">点击修改结束时间</span>-->
-
+							<p>结束时间：<a class="span_Time date pickdate dateChange" href="javaScript:void(0);" style="width: 55%;color: #666;" ng-bind="sreservationEndTime" name="结束时间">2016-06-08  12:00:00</a></p>
 						</dd>
 					</dl>
 
@@ -53,6 +51,9 @@
 			<div id="open-modal1" class="modal-window">
 				<div class="row">
 					<div class="col v-m">
+						<div class="modal-title">
+							<a href="#modal-close" title="Close" style="top: -1rem;" class="modal-close"></a>
+						</div>
 						<div class="modal-title row">
 							<h2 class="col" style="padding-left:2rem;width:65%;">小时    (24小时制)</h2>
 							<p class="col" style="padding-left:4rem;text-align: left;">分钟</p>

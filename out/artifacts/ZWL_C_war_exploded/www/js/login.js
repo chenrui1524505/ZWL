@@ -32,7 +32,9 @@ $(document).ready(function(){
             var bean = {};
             var _userInfo = Api.login(_userNum,_userPwd,_schoolNum);
 
-
+            if(!_userInfo){
+                mui.toast("登录异常！");
+            }
             if(_userInfo.success){
                 //_userInfo.object
 
