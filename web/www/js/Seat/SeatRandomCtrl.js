@@ -112,7 +112,7 @@ SeatRandomApp.factory("SeatRandomService",function(){
         var seatNum = rsi.object.seatNum;
         var SubmitInfo = g.toJson($.cookie("SubmitInfo"));
 
-        var _html = "<div class=\"seat-wrap\" id=\"seat\" style='margin:50px 50px;'>";
+        var _html = "<div class=\"seat-wrap\" id=\"seat\" style=''>"; //margin:50px 50px;
 
         if(SeatForm){
             var SeatInfo = Api.SeatsInfo(rsi.object.classroomId,SeatForm.reservationBeginTime,SeatForm.reservationEndTime);

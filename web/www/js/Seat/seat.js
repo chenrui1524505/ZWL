@@ -66,6 +66,7 @@ $(function(){
 		dx = dx || 0;
 		dy = dy || 0;
 		/*console.log("当前x值为:" + dx + ", 当前y值为:" + dy +".");*/
+
 		if(parseInt(dx + ev.x) > 0 ){
 			dx = 0;
 			ev.x = 0 ;
@@ -74,6 +75,7 @@ $(function(){
 			dy = 50;
 			ev.y = 0;
 		}
+
 
 		var offx = dx + ev.x + "px";
 		var offy = dy + ev.y + "px";

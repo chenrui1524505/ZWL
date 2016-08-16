@@ -66,6 +66,17 @@ $(function(){
 		dx = dx || 0;
 		dy = dy || 0;
 		/*console.log("当前x值为:" + dx + ", 当前y值为:" + dy +".");*/
+
+		if(parseInt(dx + ev.x) > 0 ){
+			dx = 0;
+			ev.x = 0 ;
+		}
+		if(parseInt(dy + ev.y) > 50 ){
+			dy = 50;
+			ev.y = 0;
+		}
+
+
 		var offx = dx + ev.x + "px";
 		var offy = dy + ev.y + "px";
 		target.style.webkitTransform = "translate3d(" + offx + "," + offy + ",0) scale("+currentScale+")";
@@ -83,6 +94,8 @@ $(function(){
 
 
 	touch.on('#seat', 'drag', function(ev){
+
+
 		fn_viewHandle(ev);
 
 	});
