@@ -25,6 +25,7 @@ $(document).ready(function(){
     }
 });
 var interval;
+
 var app = angular.module("App",[]);
 
 
@@ -549,17 +550,50 @@ app.factory("appService",function () {
     factory.SysTime = null;
     factory.yxsApply = function(){
 
-        var roomReservation = factory.selectReservationByUser();
+        var list = Api.selectReservationByUser();
+
+        var roomReservation = list.roomReservation;
+
+        if(typeof roomReservation != "undefined"){
+
+            var rvl =  roomReservation.roomReservationList
+            for(var rrv = 0 ; rrv < rvl.length ; rrv++){
+
+                var ct = factory.contrastTime(rvl[rrv].time.substring(0,16) + ":00");
+
+                rvl[rrv].ct = parseInt(ct / 60 / 60) + "小时" + parseInt(ct / 60 % 60) + "分钟" + parseInt(ct % 60 ) + "秒";
+                var tempID = rvl[rrv].timeid = g.mathRandom(20);
+
+                if(!factory.compare(rvl[rrv].time.substring(0,16))){
+                    rvl[rrv].ct = "0小时0分钟";
+                }
+                if(rvl[rrv].notArrive == 2){
+                    var TET = factory.contrastTime(rvl[rrv].time.substring(0,11) +rvl[rrv].time.substring(19)+ ":00");
+                    if(rrv == 0) {
+                        factory.addTimer(tempID, parseInt(TET));
+                    }
+                    rvl[rrv].toEndTime = parseInt(TET / 60 / 60) + "小时" + parseInt(TET / 60 % 60) + "分钟" + parseInt(TET % 60 ) + "秒";
+                }else{
+                    if(rrv == 0){
+                        factory.addTimer(tempID, parseInt(ct));
+                    }
+                }
+            }
+            roomReservation.roomReservationList = rvl;
+
+
+        }
+
         var roomReservationList;
         var ab = 0;
 
         var sll = typeof factory.subscribeList.lists != "undefined" ? factory.subscribeList.lists.length : 0;
         factory.subscribeLeng = sll;
-        if (typeof roomReservation != "undefined" && roomReservation != null && roomReservation.roomReservation) {
+        if (typeof roomReservation != "undefined" && roomReservation != null && roomReservation) {
 
-            roomReservationList = roomReservation.roomReservation.roomReservationList;//
+            roomReservationList = roomReservation.roomReservationList;//
 
-            factory.roomReservation = roomReservation.roomReservation;
+            factory.roomReservation = roomReservation;
             factory.roomReservationList = factory.roomReservationList = roomReservationList;
             ab = 1;
             factory.roomReservationLeng = parseInt(sll) + ab;
@@ -586,8 +620,6 @@ app.factory("appService",function () {
             return null;
         }
 
-        var controllerScope = $('div[ng-controller="subscribeListCtrl"]').scope();
-
         var userInfo = g.toJson($.cookie("userInfo"));
 
         var bean = {};
@@ -607,7 +639,7 @@ app.factory("appService",function () {
                     var el = lists[l].timeid = g.mathRandom(20);
                     var time = _hm;
 
-                    factory.addTimer(el, parseInt(time)+(userInfo.arriveTimeOut * 60));
+                    factory.addTimer(el, parseInt(time),(userInfo.arriveTimeOut * 60)); //+
                 }
 
                 if( lists[l].notArrive == 2 ){
@@ -620,7 +652,7 @@ app.factory("appService",function () {
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
 
-                        factory.addTimer(el, parseInt(time)+(userInfo.awayTimeIn * 60));
+                        factory.addTimer(el, parseInt(time),(userInfo.awayTimeIn * 60)); //+
                     }
 
 
@@ -630,7 +662,7 @@ app.factory("appService",function () {
                         lists[l].timeid = g.mathRandom(20);
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
-                        factory.addTimer(el, parseInt(time)+(userInfo.awayTimeIn * 60));
+                        factory.addTimer(el, parseInt(time),(userInfo.awayTimeIn * 60)); //+
                     }
                     if(lists[l].leaveFlag == 3){//晚饭离开
                         lists[l].timeCn = "距离回来签到时间";
@@ -638,7 +670,7 @@ app.factory("appService",function () {
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
 
-                        factory.addTimer(el, parseInt(time)+(userInfo.awayTimeIn * 60));
+                        factory.addTimer(el, parseInt(time),(userInfo.awayTimeIn * 60)); //+
 
                     }
 
@@ -649,36 +681,13 @@ app.factory("appService",function () {
                         var Endhm = factory.contrastTime(EndTime);
                         var el = lists[l].timeid;
                         var time = Endhm;
-                        factory.addTimer(el, parseInt(time));
+                        factory.addTimer(el, parseInt(time) , 0);
                     }
                 }
             }
             bean.lists = lists;
         }
-        var roomReservation = list.roomReservation;
 
-        if(typeof roomReservation != "undefined"){
-
-            var rvl =  roomReservation.roomReservationList
-            for(var rrv = 0 ; rrv < rvl.length ; rrv++){
-
-                var ct = factory.contrastTime(rvl[rrv].time.substring(0,16) + ":00");
-
-                rvl[rrv].ct = parseInt(ct / 60 / 60) + "小时" + parseInt(ct / 60 % 60) + "分钟" + parseInt(ct % 60 ) + "秒";
-                var tempID = rvl[rrv].timeid = g.mathRandom(20);
-                factory.addTimer(tempID, parseInt(ct));
-                if(!factory.compare(rvl[rrv].time.substring(0,16))){
-                    rvl[rrv].ct = "0小时0分钟";
-                }
-                if(rvl[rrv].notArrive == 2){
-                    var TET = factory.contrastTime(rvl[rrv].time.substring(0,11) +rvl[rrv].time.substring(19)+ ":00");
-                    factory.addTimer(tempID, parseInt(TET));
-                    rvl[rrv].toEndTime = parseInt(TET / 60 / 60) + "小时" + parseInt(TET / 60 % 60) + "分钟" + parseInt(TET % 60 ) + "秒";
-                }
-            }
-            roomReservation.roomReservationList = rvl;
-            bean.roomReservation = roomReservation;
-        }
         factory.SysTime = null;
         return bean;
 
@@ -693,26 +702,31 @@ app.factory("appService",function () {
         var list = [],
             interval;
 
-        var controllerScope = $('div[ng-controller="subscribeListCtrl"]').scope();
+
 
         var userInfo = g.toJson($.cookie("userInfo"));
 
-        return function (id, time) {
+        return function (id, time ,outTime) {
             if (!interval)
                 interval = setInterval(go, 1000);
-            list.push({ ele: id, time: time });
+            list.push({ ele: id, time: time , outTime:outTime});
         }
 
         function go() {
             for (var i = 0; i < list.length; i++) {
-                $("#"+list[i].ele).html(getTimerString(list[i].time ? list[i].time -= 1 : 0));
+                $("#"+list[i].ele).html(getTimerString(list[i].time ? list[i].time -= 1 : 0  , list[i].outTime));
                 if (!list[i].time)
                     list.splice(i--, 1);
             }
         }
 
-        function getTimerString(time) {
-            var not0 = !!time,
+        function getTimerString(time , outTime) {
+            console.log(time);
+
+            outTime = outTime ? outTime : 0 ;
+            console.log(outTime);
+            var controllerScope = $('div[ng-controller="subscribeListCtrl"]').scope();
+            var not0 = !!time && time > 0,
                 d = Math.floor(time / 86400),//天
                 h = Math.floor(time  / 3600),
                 m = Math.floor((time %= 3600) / 60),
@@ -720,22 +734,24 @@ app.factory("appService",function () {
             if (not0){
                 return  h + "小时" + m + "分" + s + "秒";
             }else{
+                if(time < 0 && parseInt(-time) >= outTime ){
+                    controllerScope.$apply(function () {
+                        var subscribeListTwo = factory.selectReservationByUser();
+                        if (subscribeListTwo) {
+                            controllerScope.subscribeList = subscribeListTwo.lists;
+                            if (subscribeListTwo.lists) {
+                                controllerScope.subscribeLeng = subscribeListTwo.lists.length;
+                            }
+                        }
+                        factory.yxsApply();
+                        controllerScope.subscribeLeng = factory.subscribeLeng;
+                        controllerScope.roomReservation = factory.roomReservation;
+                        controllerScope.roomReservationList = factory.roomReservationList = factory.roomReservationList;
+                        controllerScope.roomReservationLeng = factory.roomReservationLeng;
 
-                var subscribeListTwo = factory.selectReservationByUser();
-                if (subscribeListTwo) {
-                    controllerScope.subscribeList = subscribeListTwo.lists;
-                    if (subscribeListTwo.lists) {
-                        controllerScope.subscribeLeng = subscribeListTwo.lists.length;
-                    }
+                    });
+                    return "0小时0分钟0秒";
                 }
-
-                factory.yxsApply();
-                controllerScope.subscribeLeng = factory.subscribeLeng;
-                controllerScope.roomReservation = factory.roomReservation;
-                controllerScope.roomReservationList = factory.roomReservationList = factory.roomReservationList;
-                controllerScope.roomReservationLeng = factory.roomReservationLeng
-
-                return "0小时0分钟0秒";
             }
         }
     } ();
