@@ -70,7 +70,7 @@ SeatRandomApp.factory("SeatRandomService",function(){
 
         var seatNum = checkSeatInfo.seatNum;
 
-        var _html = "<div class=\"seat-wrap\" id=\"seat\" style='margin:50px 50px;transform:translateX("+g.getCountWidth(seatNum)+"px);'>";
+        var _html = "<div class=\"seat-wrap\" id=\"seat\" style='transform:translateX("+g.getCountWidth(seatNum)+"px);'>"; //margin:50px 50px;
 
         if(checkSeatInfo){
             var SeatInfo = Api.SeatsInfo(checkSeatInfo.classroomId,checkSeatInfo.sreservationBeginTime,checkSeatInfo.sreservationEndTime);

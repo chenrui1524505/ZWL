@@ -1,5 +1,5 @@
 <li class="seat-item" ng-repeat="sl in subscribeList" >
-    <p class="item-time"><span class="item-num" ng-bind="subscribeLeng - $index"></span><span ng-bind="sl.time">2016-06-08&nbsp;&nbsp;&nbsp;09:45-22:00</span></p>
+    <p class="item-time"><span class="item-num" ng-bind="$index+1+roomReservationLeng"><!--subscribeLeng - --></span><span ng-bind="sl.time">2016-06-08&nbsp;&nbsp;&nbsp;09:45-22:00</span></p>
     <p class="item-txt" ng-bind="sl.info">致未来图书馆1层测试自习室 2-8 座</p>
     <!-- <div ng-if="sl.notArrive == 1">-->
          <p class="item-txt"><span ng-bind="sl.timeCn"></span><span class="c-p" id="{{sl.timeid}}" ng-bind="sl.hm"></span></p>

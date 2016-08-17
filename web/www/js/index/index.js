@@ -265,7 +265,7 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
 
     var _ui = g.userInfo();
 
-    $scope.temporary = "临时离开（允许离开最大时长5分钟）";
+    $scope.temporary = "临时离开";
     $scope.lunch = "午餐（"+_ui.lunchStartTime + "-"  +_ui.lunchEndTime +"）";
     $scope.dinner = "晚餐（"+_ui.dinnerStartTime + "-" +_ui.dinnerEndTime +"）";
 
@@ -337,6 +337,7 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
     $scope.roomReservation = appService.roomReservation;
     $scope.roomReservationList = appService.roomReservationList = appService.roomReservationList;
     $scope.roomReservationLeng = appService.roomReservationLeng
+
 
     /**
      * 更换座位
@@ -585,7 +586,7 @@ app.factory("appService",function () {
         }
 
         var roomReservationList;
-        var ab = 0;
+
 
         var sll = typeof factory.subscribeList.lists != "undefined" ? factory.subscribeList.lists.length : 0;
         factory.subscribeLeng = sll;
@@ -595,8 +596,8 @@ app.factory("appService",function () {
 
             factory.roomReservation = roomReservation;
             factory.roomReservationList = factory.roomReservationList = roomReservationList;
-            ab = 1;
-            factory.roomReservationLeng = parseInt(sll) + ab;
+
+            factory.roomReservationLeng = 1;// parseInt(sll) + 1
         } else {
             $("#roomReservation").hide();
         }

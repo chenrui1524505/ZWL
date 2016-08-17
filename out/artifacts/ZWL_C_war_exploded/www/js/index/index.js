@@ -338,6 +338,7 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
     $scope.roomReservationList = appService.roomReservationList = appService.roomReservationList;
     $scope.roomReservationLeng = appService.roomReservationLeng
 
+
     /**
      * 更换座位
      */
@@ -585,7 +586,7 @@ app.factory("appService",function () {
         }
 
         var roomReservationList;
-        var ab = 0;
+
 
         var sll = typeof factory.subscribeList.lists != "undefined" ? factory.subscribeList.lists.length : 0;
         factory.subscribeLeng = sll;
@@ -595,8 +596,8 @@ app.factory("appService",function () {
 
             factory.roomReservation = roomReservation;
             factory.roomReservationList = factory.roomReservationList = roomReservationList;
-            ab = 1;
-            factory.roomReservationLeng = parseInt(sll) + ab;
+
+            factory.roomReservationLeng = 1;// parseInt(sll) + 1
         } else {
             $("#roomReservation").hide();
         }
