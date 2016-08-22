@@ -207,7 +207,7 @@ body{overflow:hidden;}
 .app-view-head p{font-size:1.1rem;color:#fff;text-align:center;line-height:1.4rem;margin-top:0.5rem;}
 .txt-list li{background:#fff;margin:0.3rem;padding:1rem 1rem;position:relative;}
 .txt-list li p{color:#808080;font-size:1.1rem;}
-.txt-list li h2{font-size:1.15rem;color:#359DD9;margin:0.5rem 0 0 0;}
+.txt-list li h2{font-size:1.15rem;color:#359DD9;margin:0.5rem 3rem 0 0;}
 .txt-list li span{display:inline-block;width:2.2rem;height:2.2rem;border-radius:50%;position:absolute;right:1rem;top:50%;margin-top:-1.1rem;}
 .txt-list li .right{background:url(../img/right.png) no-repeat center center #BAE0BD;background-size:1.6rem;}
 .txt-list li .before{background:url(../img/go.png) no-repeat center center #FF7BAC;background-size:1.6rem;}
@@ -246,4 +246,70 @@ body{overflow:hidden;}
 }
 .app-head-null:after{
     background: none !important;
+}
+/*首页刷新*/
+
+.scroll-refresher {
+    position: absolute;
+    top: -60px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    margin: auto;
+    height: 60px;
+}
+.scroll-refresher .ionic-refresher-content.ionic-refresher-with-text {
+    bottom: 10px;
+}
+.scroll-refresher .ionic-refresher-content {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    color: #666;
+    text-align: center;
+    font-size: 30px;
+}
+.scroll-refresher .icon-pulling {
+    -webkit-animation-name: refresh-spin-back;
+    animation-name: refresh-spin-back;
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-fill-mode: none;
+    animation-fill-mode: none;
+    -webkit-transform: translate3d(0,0,0) rotate(0deg);
+    transform: translate3d(0,0,0) rotate(0deg);
+}
+.scroll-refresher .icon-pulling, .scroll-refresher .icon-refreshing {
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.ion-android-arrow-down:before {
+    content: "\f35d";
+}
+.scroll-refresher .ionic-refresher-content .text-pulling, .scroll-refresher .ionic-refresher-content .text-refreshing {
+    font-size: 16px;
+    line-height: 16px;
+}
+.scroll-refresher .icon-refreshing {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+}
+
+
+.spinner-ios, .spinner-ios-small {
+    stroke: #69717d;
+}
+.spinner {
+    stroke: #444;
+    fill: #444;
+}
+.spinner svg {
+    width: 28px;
+    height: 28px;
 }

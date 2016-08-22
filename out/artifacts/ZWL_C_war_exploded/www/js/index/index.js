@@ -26,11 +26,49 @@ $(document).ready(function(){
 });
 var interval;
 
-var app = angular.module("App",[]);
+var app = angular.module("App", ['ionic']);
 
+app.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if(window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        }
+        if(window.StatusBar) {
+            StatusBar.styleDefault();
+        }
+    });
+});
 
 app.controller("subscribeListCtrl",function($scope,appService,$interval){
     interval = $interval;
+
+    $scope.doRefresh = function(){
+
+        setTimeout(function(){
+            $scope.$apply(function () {
+                var subscribeListTwo = appService.selectReservationByUser();
+                if(subscribeListTwo) {
+
+                    $scope.subscribeList = subscribeListTwo.lists;
+                    if(subscribeListTwo.lists){
+                        $scope.subscribeLeng = subscribeListTwo.lists.length;
+                    }
+
+                }
+                appService.yxsApply();
+                $scope.subscribeLeng = appService.subscribeLeng;
+                $scope.roomReservation = appService.roomReservation;
+                $scope.roomReservationList = appService.roomReservationList = appService.roomReservationList;
+                $scope.roomReservationLeng = appService.roomReservationLeng
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+
+        },1000);
+
+
+    }
 
     /**
      * 扫码就坐
@@ -265,15 +303,9 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
 
     var _ui = g.userInfo();
 
-    $scope.temporary = "临时离开（允许离开最大时长5分钟）";
+    $scope.temporary = "临时离开";
     $scope.lunch = "午餐（"+_ui.lunchStartTime + "-"  +_ui.lunchEndTime +"）";
     $scope.dinner = "晚餐（"+_ui.dinnerStartTime + "-" +_ui.dinnerEndTime +"）";
-
-
-
-
-
-
 
 
 
@@ -552,7 +584,16 @@ app.factory("appService",function () {
     factory.yxsApply = function(){
 
         var list = Api.selectReservationByUser();
+        if(!list.success){
+            $(".app-null").show();
+            $(".app-head").css("background","#76B86E");
 
+            var sppclass = $(".app-head").attr("class");
+            $(".app-head").attr("class",sppclass + " app-head-null");
+            $(".c-b").css("color","#76B86E");
+            $(".seat-list").hide();
+            return null;
+        }
         var roomReservation = list.roomReservation;
 
         if(typeof roomReservation != "undefined"){
@@ -722,10 +763,10 @@ app.factory("appService",function () {
         }
 
         function getTimerString(time , outTime) {
-            console.log(time);
+            //console.log(time);
 
             outTime = outTime ? outTime : 0 ;
-            console.log(outTime);
+            //console.log(outTime);
             var controllerScope = $('div[ng-controller="subscribeListCtrl"]').scope();
             var not0 = !!time && time > 0,
                 d = Math.floor(time / 86400),//天
@@ -735,7 +776,7 @@ app.factory("appService",function () {
             if (not0){
                 return  h + "小时" + m + "分" + s + "秒";
             }else{
-                if(time < 0 && parseInt(-time) >= outTime ){
+                if(time <= 0 && parseInt(-time) >= outTime ){
                     controllerScope.$apply(function () {
                         var subscribeListTwo = factory.selectReservationByUser();
                         if (subscribeListTwo) {
@@ -751,8 +792,9 @@ app.factory("appService",function () {
                         controllerScope.roomReservationLeng = factory.roomReservationLeng;
 
                     });
-                    return "0小时0分钟0秒";
+
                 }
+                return "0小时0分钟0秒";
             }
         }
     } ();
@@ -821,5 +863,7 @@ app.directive("zwlzxsindex",function(){
 
 $(document).ready(function () {
     mui.init();
+
+
 
 });

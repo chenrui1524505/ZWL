@@ -7,6 +7,11 @@
 
 $(document).ready(function(){
 
+    var _userInfo =   $.cookie("userInfo");
+    if(typeof _userInfo != "undefined") {
+        window.location = "index.html";//判断登录跳转
+    }
+
     var _schools = Api.Schools();
     if(_schools){
         g_schoolInit(_schools);
