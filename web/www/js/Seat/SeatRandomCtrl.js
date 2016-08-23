@@ -103,6 +103,7 @@ SeatRandomApp.factory("SeatRandomService",function(){
         var rsi = factory.rsi;
         if(!rsi.success){
             alert(rsi.message);
+
             window.location = "subscribe.html";
         }
 
