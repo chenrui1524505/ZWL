@@ -207,7 +207,7 @@ body{overflow:hidden;}
 .app-view-head p{font-size:1.1rem;color:#fff;text-align:center;line-height:1.4rem;margin-top:0.5rem;}
 .txt-list li{background:#fff;margin:0.3rem;padding:1rem 1rem;position:relative;}
 .txt-list li p{color:#808080;font-size:1.1rem;}
-.txt-list li h2{font-size:1.15rem;color:#359DD9;margin:0.5rem 2.5rem 0 0;}
+.txt-list li h2{font-size:1.15rem;color:#359DD9;margin:0.5rem 3rem 0 0;}
 .txt-list li span{display:inline-block;width:2.2rem;height:2.2rem;border-radius:50%;position:absolute;right:1rem;top:50%;margin-top:-1.1rem;}
 .txt-list li .right{background:url(../img/right.png) no-repeat center center #BAE0BD;background-size:1.6rem;}
 .txt-list li .before{background:url(../img/go.png) no-repeat center center #FF7BAC;background-size:1.6rem;}

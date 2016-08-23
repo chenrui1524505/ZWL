@@ -76,7 +76,42 @@ $(function(){
 			ev.y = 0;
 		}
 
+		var seat_height = $("#seat");
+		var seat_content = $(".seat-content");
 
+		if( parseInt(seat_content.height()) > parseInt(seat_height.height())){
+			dy = 0;
+			ev.y = 0;
+		}else{
+			var _y = dy+ev.y;
+			var _sh_h = parseInt(seat_height.height()) - parseInt(seat_content.height()) ;
+			if(-_y > (_sh_h)){
+				dy = -_sh_h;
+				ev.y = 0;
+			}
+		}
+
+		if( parseInt(seat_content.width()) > parseInt(seat_height.width())){
+			dx = 0;
+			ev.x = 0;
+		}else{
+			var _y = dx+ev.x;
+			var _sh_w = parseInt(seat_height.width()) - (parseInt(seat_content.width())) ;
+			if(-_y > (_sh_w)){
+				dx = -_sh_w;
+				ev.x = 0;
+			}
+		}
+
+
+
+
+
+
+
+		//console.log("dy" + dy);
+
+		//console.log("ev.y" + ev.y);
 		var offx = dx + ev.x + "px";
 		var offy = dy + ev.y + "px";
 		target.style.webkitTransform = "translate3d(" + offx + "," + offy + ",0) scale("+currentScale+")";

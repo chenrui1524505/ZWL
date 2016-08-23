@@ -26,8 +26,9 @@ $(document).ready(function(){
 });
 var interval;
 
-var app = angular.module("App", ['ionic']);
+var app = angular.module("App", []);//'ionic'
 
+/*
 app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -39,11 +40,12 @@ app.run(function($ionicPlatform) {
             StatusBar.styleDefault();
         }
     });
-});
+});*/
 
 app.controller("subscribeListCtrl",function($scope,appService,$interval){
     interval = $interval;
 
+    /*
     $scope.doRefresh = function(){
 
         setTimeout(function(){
@@ -68,7 +70,8 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
         },1000);
 
 
-    }
+    };
+    */
 
     /**
      * 扫码就坐
