@@ -26,10 +26,10 @@ $(document).ready(function(){
 });
 var interval;
 
-var app = angular.module("App", []);//'ionic'
+var app = angular.module("App", ['ionic']);//
 
 
-/*app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -40,13 +40,13 @@ var app = angular.module("App", []);//'ionic'
             StatusBar.styleDefault();
         }
     });
-});*/
+});
 
 app.controller("subscribeListCtrl",function($scope,appService,$interval){
     interval = $interval;
 
 
-    /*$scope.doRefresh = function(){
+    $scope.doRefresh = function(){
 
         setTimeout(function(){
             $scope.$apply(function () {
@@ -70,7 +70,7 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
         },1000);
 
 
-    };*/
+    };
 
 
     /**

@@ -13,6 +13,8 @@ var subscribeApp = angular.module("App",[]);
  */
 subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService){
 
+
+
     //起始时间为当前时间
     var nowTime = Api.getSystemTime();
     nowTime = nowTime.replace("-","/").replace("-","/");
@@ -25,9 +27,14 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
     $("#min").html(Minutes);
 
     //自习室  图书馆
-    $scope.subscribeList = subscribeService.Campuses();
+    var re_sl = subscribeService.Campuses();
+    $scope.subscribeList = re_sl;
+    if(re_sl && re_sl.length > 0 && re_sl.length == 1){
+        $scope.studyLounge = subscribeService.Classroom();//默认查询第一个自习室
+    }else{
+        console.log("有多个图书馆！");
+    }
 
-    $scope.studyLounge = subscribeService.Classroom();//默认查询第一个自习室
 
     //自习室  图书馆
     $scope.V_change = function(V_change){
@@ -75,12 +82,16 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
         //研修室 图书馆 事件
         $scope.buildingId_change = function (V_change) {
             subscribeService.first_BuildingResearch = V_change;
-
-            $scope.ResearchRoom = subscribeService.ResearchRoom();
-        }
+            var re_rr = subscribeService.ResearchRoom();
+            $scope.ResearchRoom = re_rr;
+            if(re_rr && re_rr.length == 1){
+                $scope.RR_change(re_rr[0].id);
+            }
+        };
 
         //研修室 研修室 事件
         $scope.RR_change = function(arg){
+            var tipsfather = $(".tipsfather");
             if(arg){
                 var ResearchRoom = this.ResearchRoom;
                 for(var r = 0 ; r < ResearchRoom.length ; r++){
@@ -101,7 +112,7 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
                 //根据研修室 更新日期
                 $scope.subscribeDate = subscribeService.getDate();
 
-                var tipsfather = $(".tipsfather");
+
                 tipsfather.show();
 
                 var selectedInfo = subscribeService.selectedInfo;
@@ -109,6 +120,12 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
                 tipsfather.html("<p class='tips' >" + selectedInfo.minPeople +"人以上才可以预约该教室，最多可容纳" + selectedInfo.maxPeople + "人！</p> <br><p class='tips'>开放时间为：" + selectedInfo.dayBeginTime + "-" + selectedInfo.dayEndTime + "</p>");
                 subscribeService.YXS_BZ = "<p class='tips' >" + selectedInfo.minPeople +"人以上才可以预约该教室，最多可容纳" + selectedInfo.maxPeople + "人！</p> <br><p class='tips'>开放时间为：" + selectedInfo.dayBeginTime + "-" + selectedInfo.dayEndTime + "</p>"
                 subscribeService.tipsfather = tipsfather;
+
+            }else{
+                subscribeService.day_YXS = subscribeService.y_day =  1;
+                //根据研修室 更新日期
+                $scope.subscribeDate = subscribeService.getDate();
+                tipsfather.hide();
             }
             subscribeService.rr_bean.roomed = arg;
 
@@ -174,18 +191,25 @@ subscribeApp.controller("ChooseSeatCtrl",function ($scope,subscribeService) {
         subscribeService.rr_bean.beginTime = $(".date #start")[0].innerHTML;
         subscribeService.rr_bean.endTime = $(".date #end")[0].innerHTML;
 
-        var LibraryName = $("#LibraryName option:selected").text();
+        var LibraryName = $("#libraryList option:selected").text();
+        if(!LibraryName || "请选择图书馆" == LibraryName){
+            subscribeService.alertError("请选择图书馆！");
+            return false;
+        }
+
         subscribeService.rr_bean.LibraryName = LibraryName;
         var roomed = subscribeService.rr_bean.roomed;
 
-        var si = subscribeService.selectedInfo;
 
-        subscribeService.rr_bean.roomedName = si.name;
 
         if(!roomed){
             subscribeService.alertError("请选择研修室！");
             return false;
         }
+
+        var si = subscribeService.selectedInfo;
+
+        subscribeService.rr_bean.roomedName = si.name;
 
         var totalPeople = subscribeService.rr_bean.totalPeople;
         if(!totalPeople){
@@ -488,9 +512,13 @@ $(document).ready(function(){
                         $(Library[lb]).prop("selected", 'selected');
                     }
                 }else{
-                   if(lb == 1){
-                       $(Library[lb]).prop("selected", 'selected');
-                   }
+                    if(Library.length > 2){
+                        $(Library[0]).prop("selected", 'selected');
+                    }else if(Library.length == 2){
+                        $(Library[1]).prop("selected", 'selected');
+                    }
+
+
                 }
 
             }
@@ -504,9 +532,13 @@ $(document).ready(function(){
                         $(studyLounge[lb]).prop("selected", 'selected');
                     }
                 }else{
-                    if(lb == 1){
-                        $(studyLounge[lb]).prop("selected", 'selected');
+                    if(studyLounge.length > 2){
+                        $(studyLounge[0]).prop("selected", 'selected');
+                    }else if(studyLounge.length == 2){
+                        $(studyLounge[1]).prop("selected", 'selected');
                     }
+
+
                 }
             }
         }
@@ -530,5 +562,45 @@ $(document).ready(function(){
         }
     }
 
+    //研修室图书馆
+    var libraryList = $("#libraryList option");
+    if(libraryList.length > 0){
+        if(libraryList.length > 2){
+            $(libraryList[0]).prop("selected", 'selected');
+        }else if(libraryList.length == 2){
+            $(libraryList[1]).prop("selected", 'selected');
+        }else{
+            $(libraryList[0]).prop("selected", 'selected');
+        }
+    }
+
+    $("#libraryList").change(function(){
+        var select_RR = $('#select_RR option');
+        if(select_RR.length > 0){
+            if(select_RR.length > 2){
+                $(select_RR[0]).prop("selected", 'selected');
+            }else if(select_RR.length == 2){
+                $(select_RR[1]).prop("selected", 'selected');
+            }else{
+                $(select_RR[0]).prop("selected", 'selected');
+            }
+        }
+    });
+
+
+    $("#LibraryName").change(function(){
+        var studyLoungeName = $('#studyLoungeName option');
+        if(studyLoungeName.length > 0){
+            if(studyLoungeName.length > 2){
+                $(studyLoungeName[0]).prop("selected", 'selected');
+            }else if(studyLoungeName.length == 2){
+                $(studyLoungeName[1]).prop("selected", 'selected');
+            }else{
+                $(studyLoungeName[0]).prop("selected", 'selected');
+            }
+        }
+    });
+
 
 });
+

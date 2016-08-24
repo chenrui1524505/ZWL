@@ -35,7 +35,7 @@ checkSeatApp.factory("checkSeatService",function(){
         var seatNum = checkSeatInfo.seatNum;
         var ss = 150; //style='transform:translateX("+ss+"px);'
 
-        var _html = "<div class=\"seat-wrap\" id=\"seat\">";
+        var _html = "<div class=\"seat-wrap\" style='padding-top: 50px' id=\"seat\">";
 
         if (checkSeatInfo) {
             var SeatInfo = Api.SeatsInfo(checkSeatInfo.classroomId, checkSeatInfo.sreservationBeginTime, checkSeatInfo.sreservationEndTime);

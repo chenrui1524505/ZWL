@@ -28,8 +28,8 @@ var interval;
 
 var app = angular.module("App", []);//'ionic'
 
-/*
-app.run(function($ionicPlatform) {
+
+/*app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -45,8 +45,8 @@ app.run(function($ionicPlatform) {
 app.controller("subscribeListCtrl",function($scope,appService,$interval){
     interval = $interval;
 
-    /*
-    $scope.doRefresh = function(){
+
+    /*$scope.doRefresh = function(){
 
         setTimeout(function(){
             $scope.$apply(function () {
@@ -70,8 +70,8 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
         },1000);
 
 
-    };
-    */
+    };*/
+
 
     /**
      * 扫码就坐
@@ -697,7 +697,7 @@ app.factory("appService",function () {
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
 
-                        factory.addTimer(el, parseInt(time),(userInfo.awayTimeIn * 60)); //+
+                        factory.addTimer(el, parseInt(time),0); //+
                     }
 
 
@@ -707,7 +707,7 @@ app.factory("appService",function () {
                         lists[l].timeid = g.mathRandom(20);
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
-                        factory.addTimer(el, parseInt(time),(userInfo.awayTimeIn * 60)); //+
+                        factory.addTimer(el, parseInt(time),0); //(userInfo.awayTimeIn * 60)
                     }
                     if(lists[l].leaveFlag == 3){//晚饭离开
                         lists[l].timeCn = "距离回来签到时间";
@@ -715,7 +715,7 @@ app.factory("appService",function () {
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
 
-                        factory.addTimer(el, parseInt(time),(userInfo.awayTimeIn * 60)); //+
+                        factory.addTimer(el, parseInt(time),0); //+
 
                     }
 
@@ -780,7 +780,29 @@ app.factory("appService",function () {
                 return  h + "小时" + m + "分" + s + "秒";
             }else{
                 if(time <= 0 && parseInt(-time) >= outTime ){
-                    controllerScope.$apply(function () {
+                    console.log("outTime:"+outTime);
+                    console.log("parseInt(-time):"+parseInt(-time));
+                    console.log("time:"+time);
+                    var flag = false;
+
+                    try {
+                        controllerScope.$apply(function () {
+                            var subscribeListTwo = factory.selectReservationByUser();
+                            if (subscribeListTwo) {
+                                controllerScope.subscribeList = subscribeListTwo.lists;
+                                if (subscribeListTwo.lists) {
+                                    controllerScope.subscribeLeng = subscribeListTwo.lists.length;
+                                }
+                            }
+                            factory.yxsApply();
+                            controllerScope.subscribeLeng = factory.subscribeLeng;
+                            controllerScope.roomReservation = factory.roomReservation;
+                            controllerScope.roomReservationList = factory.roomReservationList = factory.roomReservationList;
+                            controllerScope.roomReservationLeng = factory.roomReservationLeng;
+                            flag = true;
+
+                        });
+                    }catch (e){
                         var subscribeListTwo = factory.selectReservationByUser();
                         if (subscribeListTwo) {
                             controllerScope.subscribeList = subscribeListTwo.lists;
@@ -793,8 +815,24 @@ app.factory("appService",function () {
                         controllerScope.roomReservation = factory.roomReservation;
                         controllerScope.roomReservationList = factory.roomReservationList = factory.roomReservationList;
                         controllerScope.roomReservationLeng = factory.roomReservationLeng;
+                        flag = true;
+                        console.log(e);
+                    }
+                    if(!flag){
+                        var subscribeListTwo = factory.selectReservationByUser();
+                        if (subscribeListTwo) {
+                            controllerScope.subscribeList = subscribeListTwo.lists;
+                            if (subscribeListTwo.lists) {
+                                controllerScope.subscribeLeng = subscribeListTwo.lists.length;
+                            }
+                        }
+                        factory.yxsApply();
+                        controllerScope.subscribeLeng = factory.subscribeLeng;
+                        controllerScope.roomReservation = factory.roomReservation;
+                        controllerScope.roomReservationList = factory.roomReservationList = factory.roomReservationList;
+                        controllerScope.roomReservationLeng = factory.roomReservationLeng;
+                    }
 
-                    });
 
                 }
                 return "0小时0分钟0秒";

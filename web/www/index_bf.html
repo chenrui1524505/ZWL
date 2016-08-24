@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html ng-app="App">
+	<head>
+		<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta charset="UTF-8">
+		<title>首页-index</title>
+
+		<link rel="stylesheet" href="../www/css/mui.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script src="js/g.js" charset="utf-8"></script>
+		<script src="../www/js/mui.js" charset="utf-8"></script>
+		<style>
+			.scroll{    height: 100%;}
+		</style>
+	</head>
+	<body>
+		<div class="app has-head has-banner"style="padding-bottom: 6rem;" ng-controller="subscribeListCtrl">
+			<div class="app-head">
+				<ul class="row" style="padding-top:5px;">
+					<li class="col v-m" style="padding-top:7px;">
+						<p class="g-userName"></p>
+						<p class="g-userNum"></p>
+					</li>
+					<li class="col t-r v-b">
+						<img class="face" src="img/face.png"/>
+					</li>
+				</ul>
+				<ul class="row" style="    height: 6rem;">
+					<li class="col v-t">
+						<a class="btn btn-opatiy btn-conner has-icon c-b" href="subscribe.html"><img align="absmiddle" src="img/ion-clock.png"/>我要预约</a>
+					</li>
+					<li class="col t-r v-t">
+						<a class="btn btn-opatiy btn-conner has-icon c-b" ng-click="SweepCode();" href="javaScript:void(0);"><img align="absmiddle" src="img/take-code.png"/>扫码就坐</a>
+					</li>
+				</ul>
+			</div>
+			<div class="app-view">
+				<ion-content >
+					<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+					<div  class="app-view-content">
+
+					<!--没有预约座位-->
+
+					<div class="app-null row" style="display:none;">
+						<div class="col">
+							<img src="img/yuyue-no.png" />
+							<p>您尚未预约座位, 快来吧！</p>
+						</div>
+					</div>
+					<!---->
+
+					<ul class="seat-list" >
+
+						<zwlyxsindex></zwlyxsindex>
+						<ion-view>
+							<ion-nav-buttons side="left">
+								<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+							</ion-nav-buttons>
+							...
+						</ion-view>
+						<zwlzxsindex></zwlzxsindex>
+
+					</ul>
+					</div>
+					</ion-content >
+
+			</div>
+			<div class="app-footer">
+				<div class="nav row">
+					<a class="col active" href="index.html">首页</a>
+					<a class="col" href="subscribe.html">预约</a>
+					<a class="col" href="record.html">记录</a>
+					<a class="col" href="settings.html">设置</a>
+				</div>
+			</div>
+			<!--离席选择框-->
+			<div class="mui-popup mui-popup-in leave-div" style="display: none;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell leave-option"  ng-bind="temporary" ng-click="leave(1);">Item 1</li>
+					<li class="mui-table-view-cell leave-option"  ng-bind="lunch" ng-click="leave(2);">Item 2</li>
+					<li class="mui-table-view-cell leave-option"  ng-bind="dinner" ng-click="leave(3);">Item 3</li>
+					<li class="mui-table-view-cell leave-option"  ng-click="leave(4);">离席</li>
+				</ul>
+				<div class="mui-table-view"><span class="mui-popup-button" style="font-size: 15px" ng-click="leave_close()">关闭</span></div>
+			</div>
+			<!--离席选择框-->
+
+			<!--研修室查看-->
+			<div class="mui-popup mui-popup-in more-yxs" style="display: none;"  >
+
+				<div class="mui-popup-inner">
+					<div class="mui-popup-title">向左滑取消预约</div>
+				</div>
+
+				<ul id="OA_task_1" class="mui-table-view">
+					<li class="mui-table-view-cell" ng-repeat="rrl in roomReservationList" name="{{rrl.id}}">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">取消</a>
+						</div>
+						<div class="mui-slider-handle">
+							<span ng-bind="rrl.time"></span>&nbsp;&nbsp;&nbsp;
+							<span ng-bind="rrl.identifyCode"></span>
+
+						</div>
+					</li>
+				</ul>
+				<div class="mui-popup-buttons"><span class="mui-popup-button" ng-click="close()">关闭</span></div>
+			</div>
+			<!--研修室查看-->
+
+			<div id="open-modal1" class="modal-window" >
+				<div class="row">
+					<div class="col v-m">
+						<div class="modal-title">
+							<h2>更换座位</h2>
+							<a href="#modal-close" title="Close" class="modal-close"></a>
+						</div>
+						<img src="img/change-seat.png" />
+						<p>请您选择更换的方式</p>
+						<a class="btn btn-block btn-conner btn-blue" href="changeSeat.html">手动更换</a>
+						<a class="btn btn-block btn-conner btn-pink" ng-click="scanCodeChange();" href="javaScript:void(0);">扫码更换</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="open-modal2" class="modal-window">
+		    <div class="row">
+		        <div class="col v-m">
+		        	<div class="modal-title">
+		        		<h2>取消预约</h2>
+		        		<a href="#modal-close" title="Close" class="modal-close"></a>
+		        	</div>
+		        	<img src="img/cancel-seat.png" />
+		        	<h3>2016-06-08     09:45-22:00<br>致未来图书馆1层测试自习室 2-8 座</h3>
+		        	<p>您确定要取消此次预约吗</p>
+		        	<a class="btn btn-block btn-conner btn-blue cancel" href="#">确定</a>
+		        </div>
+		    </div>
+
+		</div>
+		<script src="http://www.runoob.com/static/ionic/js/ionic.bundle.min.js"></script>
+		<!--<script src="js/angular.js"></script>-->
+		<script src="js/index/index.js"></script>
+
+
+		<div class="mui-popup-backdrop mui-active more-yxs leave-div" style="display: none;"></div>
+	<script src="js/jweixin-1.0.0.js"></script>
+	<script src="js/scanQRCode.js"></script>
+	</body>
+</html>

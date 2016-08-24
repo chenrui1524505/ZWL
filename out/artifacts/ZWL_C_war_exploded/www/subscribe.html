@@ -36,7 +36,7 @@
 								<span class="tag">图书馆</span>
 								<div class="select form">
 									<select id="LibraryName" ng-model="select_Value" ng-change="V_change(select_Value)">
-										<option value="" selected> </option>
+										<option value="" selected>请选择图书馆</option>
 										<option ng-repeat="lb in subscribeList" value="{{lb.buildingId}}" ng-bind="lb.buildingName"></option>
 									</select>
 								</div>
@@ -45,8 +45,8 @@
 								<span class="tag">自习室</span>
 								<div class="select form">
 									<select id="studyLoungeName" >
-										<option value="" selected> </option>
-										<option ng-repeat="sl in studyLounge" floor="{{sl.floor}}" value="{{sl.classroomId}}"ng-bind="sl.classroomNum"> </option><!--classroomId-->
+										<option value="" selected>请选择自习室</option>
+										<option ng-repeat="sl in studyLounge" floor="{{sl.floor}}" value="{{sl.classroomId}}"ng-bind="sl.classroomNum+'【'+sl.floor+'层】'"> </option><!--classroomId-->
 									</select>
 								</div>
 							</div>
@@ -55,18 +55,18 @@
 							<div class="form-line">
 								<span class="tag">图书馆</span>
 								<div class="select form">
-									<select ng-model="buildingIdModel" ng-change="buildingId_change(buildingIdModel)">
-										<option value="" selected> </option>
-										<option ng-repeat="ll in libraryList" value="{{ll.buildingId}}" ng-bind="ll.buildingName"> 致未来图书馆</option>
+									<select id="libraryList" ng-model="buildingIdModel"  ng-options="ll.buildingId as ll.buildingName for ll in libraryList"  ng-change="buildingId_change(buildingIdModel)">
+										<option value="" >请选择图书馆</option>
+										<option ng-repeat="ll in libraryList" value="{{ll.buildingId}}" ng-bind="ll.buildingName"> </option>
 									</select>
 								</div>
 							</div>
 							<div class="form-line">
 								<span class="tag">研修室</span>
 								<div class="select form">
-									<select id="select_RR" ng-model="select_RR" ng-change="RR_change(select_RR)">
-										<option value="" selected> </option>
-										<option ng-repeat="RR in ResearchRoom" value="{{RR.id}}" ng-bind="RR.name">1层测试自习室</option>
+									<select id="select_RR"  ng-model="select_RR" ng-options="RR.id as RR.name+'【'+RR.floor+'层】'  for RR in ResearchRoom"  ng-change="RR_change(select_RR)">
+										<option value="" >请选择研修室</option>
+										<option ng-repeat="RR in ResearchRoom"  value="{{RR.id}}" ng-bind="RR.name"></option>
 									</select>
 								</div>
 							</div>
