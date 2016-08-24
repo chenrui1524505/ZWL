@@ -21,7 +21,7 @@ $(document).ready(function(){
         var _userPwd = $(".userPwd").val();
         var _schoolNum = $(".schoolNum option:selected").val();
 
-        if(!_schoolNum || _schoolNum == "请选择"){
+        if(!_schoolNum || _schoolNum == "请选择您所在的学校"){
             mui.toast("请选择学校");
             return null;
         }
@@ -38,7 +38,19 @@ $(document).ready(function(){
             var _userInfo = Api.login(_userNum,_userPwd,_schoolNum);
 
             if(!_userInfo){
-                mui.toast("登录异常！");
+
+                for(var k = 0 ; k < 10 ; K++){
+                    _userInfo =  _userInfo = Api.login(_userNum,_userPwd,_schoolNum);
+                    if(_userInfo){
+                      break;
+                    }
+                }
+
+               if(!_userInfo){
+                   mui.toast("登录异常！");
+
+                   return null;
+               }
             }
             if(_userInfo.success){
                 //_userInfo.object
