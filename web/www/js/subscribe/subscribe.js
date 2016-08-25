@@ -619,7 +619,7 @@ $(document).ready(function(){
                     _blank = _text.replace(/[^ ]/ig, "").length;
                     var temp_text = _text.replace(" ", "");
                     var _text_Length = temp_text.length ;
-                    var need_spacing =  no_count.length  +  17 * 2 - _text_Length * 2 - _blank;
+                    var need_spacing =  no_count.length  +  14 * 2 - _text_Length * 2 - _blank;
 
                     var str = _text.split("【");
                     el[e].innerHTML = str[0] + spacing(need_spacing,_blank)+"【" + str[1] ;
@@ -632,7 +632,7 @@ $(document).ready(function(){
     function spacing(arg,bl){
         var b = "";
 
-        if(arg){
+        if(!!arg && arg > 0){
 
             var _z = parseInt(arg / 2);
             var _y = arg % 2;
