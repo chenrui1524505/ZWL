@@ -207,9 +207,11 @@ subscribeApp.controller("ChooseSeatCtrl",function ($scope,subscribeService) {
             return false;
         }
 
+
+
         var si = subscribeService.selectedInfo;
 
-        subscribeService.rr_bean.roomedName = si.name;
+        subscribeService.rr_bean.roomedName = g.Trim(si.name,"g");;
 
         var totalPeople = subscribeService.rr_bean.totalPeople;
         if(!totalPeople){
@@ -471,8 +473,9 @@ subscribeApp.factory("subscribeService",function () {
            $.cookie("subscribeDate",JSON.stringify(bean), {  path: '/' });//预约的时间
 
            var spaceBean = {};
-
+           LibraryName = g.Trim(LibraryName,"g");
            spaceBean.LibraryName = LibraryName;
+           studyLoungeName = g.Trim(studyLoungeName,"g");
            spaceBean.studyLoungeName = studyLoungeName;
 
            spaceBean.toHref = arg;
