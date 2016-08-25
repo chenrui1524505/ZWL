@@ -39,7 +39,7 @@ $(document).ready(function(){
 
             if(!_userInfo){
 
-                for(var k = 0 ; k < 10 ; K++){
+                for(var k = 0 ; k < 10 ; k++){
                     _userInfo =  _userInfo = Api.login(_userNum,_userPwd,_schoolNum);
                     if(_userInfo){
                       break;

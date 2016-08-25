@@ -525,7 +525,9 @@ $(document).ready(function(){
         }
 
         var studyLounge = $("#studyLoungeName option");
+
         if(studyLounge.length > 0){
+            fontWidth(studyLounge);
             for(var lb = 0 ; lb < studyLounge.length ; lb++){
                 if(cookie_subscribeDate) {
                     if (studyLounge[lb].value == cookie_subscribeDate.studyLoungeVal) {
@@ -577,6 +579,7 @@ $(document).ready(function(){
     $("#libraryList").change(function(){
         var select_RR = $('#select_RR option');
         if(select_RR.length > 0){
+            fontWidth(select_RR);
             if(select_RR.length > 2){
                 $(select_RR[0]).prop("selected", 'selected');
             }else if(select_RR.length == 2){
@@ -591,6 +594,7 @@ $(document).ready(function(){
     $("#LibraryName").change(function(){
         var studyLoungeName = $('#studyLoungeName option');
         if(studyLoungeName.length > 0){
+            fontWidth(studyLoungeName);
             if(studyLoungeName.length > 2){
                 $(studyLoungeName[0]).prop("selected", 'selected');
             }else if(studyLoungeName.length == 2){
@@ -601,6 +605,52 @@ $(document).ready(function(){
         }
     });
 
+    function fontWidth(el){
+        if(!!el && el.length > 0){
+            for (var e = 0 ; e < el.length ; e++){
+                var _text = el[e].text;
+                var no_count = 0;
 
+                var _blank = 0;
+
+                console.log(_blank);
+                if(_text.indexOf("【") > -1 ){
+                    no_count = _text.replace(/[^0-9]/ig,"");
+                    _blank = _text.replace(/[^ ]/ig, "").length;
+                    var temp_text = _text.replace(" ", "");
+                    var _text_Length = temp_text.length ;
+                    var need_spacing =  no_count.length  +  17 * 2 - _text_Length * 2 - _blank;
+
+                    var str = _text.split("【");
+                    el[e].innerHTML = str[0] + spacing(need_spacing,_blank)+"【" + str[1] ;
+                    el[e].setAttribute("label","") ;
+                }
+            }
+
+        }
+    }
+    function spacing(arg,bl){
+        var b = "";
+
+        if(arg){
+
+            var _z = parseInt(arg / 2);
+            var _y = arg % 2;
+            for(var a = 0 ; a < _z ; a++){
+                b += "&#8195;";
+            }
+            //数字
+            if(_y == 1){
+                b += "&#8194;";
+            }
+            //空格
+            if(bl != 0){
+                for(var _b = 0 ; _b < bl ; _b++){
+                    b += "&#8197;";
+                }
+            }
+        }
+        return b;
+    }
 });
 
