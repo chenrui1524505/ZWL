@@ -1,7 +1,7 @@
 /**
  * Created by Lix on 2016-7-1.
  */
-
+var userInfo = g.toJson($.cookie("userInfo"));
 $(document).ready(function(){
     /**
      * index.js
@@ -610,7 +610,7 @@ app.factory("appService",function () {
                 var tempID = rvl[rrv].timeid = g.mathRandom(20);
 
                 if(!factory.compare(rvl[rrv].time.substring(0,16))){
-                    rvl[rrv].ct = "0小时0分钟";
+                    rvl[rrv].ct = "0小时0分钟0秒";
                 }
                 if(rvl[rrv].notArrive == 2){
                     var TET = factory.contrastTime(rvl[rrv].time.substring(0,11) +rvl[rrv].time.substring(19)+ ":00");
@@ -620,7 +620,7 @@ app.factory("appService",function () {
                     rvl[rrv].toEndTime = parseInt(TET / 60 / 60) + "小时" + parseInt(TET / 60 % 60) + "分钟" + parseInt(TET % 60 ) + "秒";
                 }else{
                     if(rrv == 0){
-                        factory.addTimer(tempID, parseInt(ct));
+                        factory.addTimer(tempID, parseInt(ct),(userInfo.arriveTimeOut * 60));
                     }
                 }
             }
@@ -665,7 +665,7 @@ app.factory("appService",function () {
             return null;
         }
 
-        var userInfo = g.toJson($.cookie("userInfo"));
+
 
         var bean = {};
         var lists = list.list;
@@ -747,7 +747,7 @@ app.factory("appService",function () {
         var list = [],
             interval;
 
-
+        var subscribeListTwo ;
 
         var userInfo = g.toJson($.cookie("userInfo"));
 
@@ -759,13 +759,13 @@ app.factory("appService",function () {
 
         function go() {
             for (var i = 0; i < list.length; i++) {
-                $("#"+list[i].ele).html(getTimerString(list[i].time ? list[i].time -= 1 : 0  , list[i].outTime));
+                $("#"+list[i].ele).html(getTimerString(list[i].time ? list[i].time -= 1 : 0  , list[i].outTime ,list[i].id));
                 if (!list[i].time)
                     list.splice(i--, 1);
             }
         }
 
-        function getTimerString(time , outTime) {
+        function getTimerString(time , outTime ,id) {
             //console.log(time);
 
             outTime = outTime ? outTime : 0 ;
@@ -786,8 +786,9 @@ app.factory("appService",function () {
                     var flag = false;
 
                     try {
+
                         controllerScope.$apply(function () {
-                            var subscribeListTwo = factory.selectReservationByUser();
+                            subscribeListTwo = factory.selectReservationByUser();
                             if (subscribeListTwo) {
                                 controllerScope.subscribeList = subscribeListTwo.lists;
                                 if (subscribeListTwo.lists) {
@@ -803,7 +804,7 @@ app.factory("appService",function () {
 
                         });
                     }catch (e){
-                        var subscribeListTwo = factory.selectReservationByUser();
+                        subscribeListTwo = factory.selectReservationByUser();
                         if (subscribeListTwo) {
                             controllerScope.subscribeList = subscribeListTwo.lists;
                             if (subscribeListTwo.lists) {
@@ -819,7 +820,7 @@ app.factory("appService",function () {
                         console.log(e);
                     }
                     if(!flag){
-                        var subscribeListTwo = factory.selectReservationByUser();
+                        subscribeListTwo = factory.selectReservationByUser();
                         if (subscribeListTwo) {
                             controllerScope.subscribeList = subscribeListTwo.lists;
                             if (subscribeListTwo.lists) {
@@ -831,6 +832,10 @@ app.factory("appService",function () {
                         controllerScope.roomReservation = factory.roomReservation;
                         controllerScope.roomReservationList = factory.roomReservationList = factory.roomReservationList;
                         controllerScope.roomReservationLeng = factory.roomReservationLeng;
+                        flag = true;
+                    }
+                    if(!!subscribeListTwo && flag){
+                        list.remove(id);
                     }
 
 

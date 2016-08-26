@@ -6,7 +6,7 @@
  * 预约座位
  */
 var subscribeApp = angular.module("App",[]);
-
+var ri;
 
 /**
  * 自习室
@@ -80,22 +80,28 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
         $scope.libraryList = RR;
 
         //研修室 图书馆 事件
+
         $scope.buildingId_change = function (V_change) {
             subscribeService.first_BuildingResearch = V_change;
             var re_rr = subscribeService.ResearchRoom();
             $scope.ResearchRoom = re_rr;
             if(re_rr && re_rr.length == 1){
-                $scope.RR_change(re_rr[0].id);
+                ri = re_rr[0].id;
+                $scope.RR_change(ri);
+            }else{
+                ri = null;
             }
         };
 
         //研修室 研修室 事件
-        $scope.RR_change = function(arg){
+        $scope.RR_change = function(bc){
+            console.log("b");
             var tipsfather = $(".tipsfather");
-            if(arg){
+            bc = bc ? bc : ri;
+            if(bc){
                 var ResearchRoom = this.ResearchRoom;
                 for(var r = 0 ; r < ResearchRoom.length ; r++){
-                    if(ResearchRoom[r].id == arg){
+                    if(ResearchRoom[r].id == bc){
                         subscribeService.selectedInfo = ResearchRoom[r];
                         /*
                          dayBeginTime: "08:00:00"
@@ -127,7 +133,7 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
                 $scope.subscribeDate = subscribeService.getDate();
                 tipsfather.hide();
             }
-            subscribeService.rr_bean.roomed = arg;
+            subscribeService.rr_bean.roomed = bc;
 
         }
 
@@ -580,30 +586,39 @@ $(document).ready(function(){
     }
 
     $("#libraryList").change(function(){
+        ri = null;
+        console.log("a");
         var select_RR = $('#select_RR option');
         if(select_RR.length > 0){
             fontWidth(select_RR);
             if(select_RR.length > 2){
                 $(select_RR[0]).prop("selected", 'selected');
+                ri = $(select_RR[0]).val();
             }else if(select_RR.length == 2){
                 $(select_RR[1]).prop("selected", 'selected');
+                ri = $(select_RR[1]).val();
             }else{
                 $(select_RR[0]).prop("selected", 'selected');
+                ri = $(select_RR[0]).val();
             }
         }
     });
 
 
     $("#LibraryName").change(function(){
+        ri = null;
         var studyLoungeName = $('#studyLoungeName option');
         if(studyLoungeName.length > 0){
             fontWidth(studyLoungeName);
             if(studyLoungeName.length > 2){
                 $(studyLoungeName[0]).prop("selected", 'selected');
+                ri = $(studyLoungeName[0]).val();
             }else if(studyLoungeName.length == 2){
                 $(studyLoungeName[1]).prop("selected", 'selected');
+                ri = $(studyLoungeName[1]).val();
             }else{
                 $(studyLoungeName[0]).prop("selected", 'selected');
+                ri = $(studyLoungeName[0]).val();
             }
         }
     });
