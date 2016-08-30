@@ -9,7 +9,15 @@ $(document).ready(function(){
 
     var _userInfo =   $.cookie("userInfo");
     if(typeof _userInfo != "undefined") {
-        window.location = "index.html";//判断登录跳转
+       var _u = g.toJson(_userInfo);
+
+        var _u_password = $.cookie("userPassword");
+
+        if(_u_password){
+            login(_u.userNum , _u_password , _u.schoolNum)
+        }else{
+            mui.toast("登录过期，请重新登录！");
+        }
     }
 
     var _schools = Api.Schools();
@@ -33,6 +41,10 @@ $(document).ready(function(){
             mui.toast("请输入密码");
             return null;
         }
+        login(_userNum,_userPwd,_schoolNum);
+
+    });
+    function login(_userNum,_userPwd,_schoolNum){
         if(_userNum && _userPwd && _schoolNum){
             var bean = {};
             var _userInfo = Api.login(_userNum,_userPwd,_schoolNum);
@@ -42,15 +54,15 @@ $(document).ready(function(){
                 for(var k = 0 ; k < 10 ; k++){
                     _userInfo =  _userInfo = Api.login(_userNum,_userPwd,_schoolNum);
                     if(_userInfo){
-                      break;
+                        break;
                     }
                 }
 
-               if(!_userInfo){
-                   mui.toast("登录异常！");
+                if(!_userInfo){
+                    mui.toast("登录异常！");
 
-                   return null;
-               }
+                    return null;
+                }
             }
             if(_userInfo.success){
                 //_userInfo.object
@@ -72,11 +84,13 @@ $(document).ready(function(){
                     g.localData.set("userPhoto", "data:image/gif;base64," + _userInfo.object.headPortrait);
                 }
 
+
                 //$("#imgtest").attr("src", "data:image/gif;base64," + _userInfo.object.headPortrait);
 
                 var expiresDate= new Date();
                 expiresDate.setTime(expiresDate.getTime() + (72000 * 60 * 1000));
 
+                $.cookie("userPassword",_userPwd, {  path: '/',expires : expiresDate  });
 
                 var selectConfig = Api.selectConfig(_userInfo.object.campusId);
                 if(typeof selectConfig != "undefined" && selectConfig.success){
@@ -108,8 +122,7 @@ $(document).ready(function(){
                 mui.toast(_userInfo.message);
             }
         }
-
-    });
+    }
 
 
 });
