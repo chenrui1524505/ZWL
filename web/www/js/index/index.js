@@ -1,6 +1,18 @@
 /**
  * Created by Lix on 2016-7-1.
  */
+
+function saveReport(){
+    $("#form").ajaxSubmit(function(message) {
+
+        if(message && message.success){
+            mui.toast(message.message);
+        }
+    });
+
+    return false;
+}
+
 var userInfo = g.toJson($.cookie("userInfo"));
 $(document).ready(function(){
     /**
@@ -21,8 +33,27 @@ $(document).ready(function(){
                 $(".face").attr("src",g.localData.get("userPhoto"));
             }
         }
-
+        $("#userInfoId").val(_ui.userInfoId);
     }
+
+    function EL(id) { return document.getElementById(id); } // Get el by ID helper function
+
+    function readFile() {
+        if (this.files && this.files[0]) {
+            $("#form").submit();
+            var FR= new FileReader();
+            FR.onload = function(e) {
+                var imgDate = e.target.result;
+                EL("face").src = imgDate;
+                g.localData.set("userPhoto",imgDate)
+
+            };
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+
+    EL("modifyImg").addEventListener("change", readFile, false);
+
 });
 var interval;
 
@@ -72,6 +103,14 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
 
     };*/
 
+    
+    
+    
+    $scope.modification = function(){
+        $("#modifyImg").trigger("click");
+    }
+    
+    
 
     /**
      * 扫码就坐
@@ -837,8 +876,6 @@ app.factory("appService",function () {
                     if(!!subscribeListTwo && flag){
                         list.remove(id);
                     }
-
-
                 }
                 return "0小时0分钟0秒";
             }

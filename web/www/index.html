@@ -28,7 +28,12 @@
 						<p class="g-userNum"></p>
 					</li>
 					<li class="col t-r v-b">
-						<img class="face" src=""/>
+						<img ng-click="modification()" class="face" id='face' src=""/>
+						<form id="form" method="post" enctype="multipart/form-data" action="http://www.jzwz88.com:9901/userInfo/updateHeadPortrait" onsubmit="return saveReport();" >
+
+							<input type="file" style="display: none" id="modifyImg"  accept="image/*" name="file">
+							<input type="text" style="display: none" id="userInfoId" name="userInfoId">
+						</form>
 					</li>
 				</ul>
 				<ul class="row" style="    height: 6rem;">
@@ -45,7 +50,7 @@
 					<!--没有预约座位-->
 					<div class="app-null row" style="display:none;">
 						<div class="col">
-							<img src="img/yuyue-no.png" />
+							<img  src="img/yuyue-no.png" />
 							<p>您尚未预约座位, 快来吧！</p>
 						</div>
 					</div>
@@ -141,5 +146,6 @@
 		<div class="mui-popup-backdrop mui-active more-yxs leave-div" style="display: none;"></div>
 	<script src="js/jweixin-1.0.0.js"></script>
 	<script src="js/scanQRCode.js"></script>
+	<script src="js/index/jquery.form.js"></script>
 	</body>
 </html>

@@ -1309,3 +1309,36 @@ window["Api"]["exchangeSeat"] = function (receiveReservationId,reservationId){
 
     return arg;
 };
+
+/**
+ * 临时离开、午饭、晚饭、彻底离席
+ * @param reservationId
+ * @param flag
+ * @returns {string}
+ */
+window["Api"]["updateHeadPortrait"] = function(img){
+    var arg = "" ;
+    var userInfo = g.userInfo();
+    $.ajax({
+        type: "post",
+        url		:	 g.ContextPath + "userInfo/updateHeadPortrait",
+        async	:	false,
+        dataType : 'file',
+        data    :{
+            "userInfoId":userInfo.userInfoId,
+            "file":img
+        },
+        success	:	function(res){
+            if(res){
+                arg = res;
+            }
+        },
+        error:function(e) {
+            console.log(e);
+            return null;
+        }
+
+    });
+
+    return arg;
+};

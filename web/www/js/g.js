@@ -373,7 +373,7 @@ window["g"]["localData"] = {
 
 document.write("<link rel=\"shortcut icon\" href=\"../www/img/app-logo.png\">");
 
-if(window.location.href.indexOf("www/") > -1){
+if(window.location.href.indexOf("www/") > -1 || window.location.href.indexOf("client/") > -1){
     document.write("<script src=\"../www/js/Api.js\" charset=\"utf-8\"></script>");
 }
 
