@@ -377,5 +377,25 @@ if(window.location.href.indexOf("www/") > -1 || window.location.href.indexOf("cl
     document.write("<script src=\"../www/js/Api.js\" charset=\"utf-8\"></script>");
 }
 
+$(document).ready(function () {
+   /* var _waitHtml = "<div id='loadingToast' class='weui_loading_toast' style=' display: none; '> <div class='weui_mask_transparent'></div>    <div class='weui_toast'>    <div class='weui_loading'> <div class='weui_loading_leaf weui_loading_leaf_0'></div><div class='weui_loading_leaf weui_loading_leaf_1'></div>    <div class='weui_loading_leaf weui_loading_leaf_2'></div>    <div class='weui_loading_leaf weui_loading_leaf_3'></div>    <div class='weui_loading_leaf weui_loading_leaf_4'></div>    <div class='weui_loading_leaf weui_loading_leaf_5'></div>    <div class='weui_loading_leaf weui_loading_leaf_6'></div>    <div class='weui_loading_leaf weui_loading_leaf_7'></div>    <div class='weui_loading_leaf weui_loading_leaf_8'></div>    <div class='weui_loading_leaf weui_loading_leaf_9'></div>    <div class='weui_loading_leaf weui_loading_leaf_10'></div>    <div class='weui_loading_leaf weui_loading_leaf_11'></div></div>    <p style='color: #ffffff;' class='weui_toast_content'>数据加载中</p>    </div>    </div>";
+    $("body").append(_waitHtml);*/
+});
+
+Array.prototype.remove=function(obj){
+    for(var i =0;i <this.length;i++){
+        var temp = this[i];
+        if(!isNaN(obj)){
+            temp=i;
+        }
+        if(temp == obj){
+            for(var j = i;j <this.length;j++){
+                this[j]=this[j+1];
+            }
+            this.length = this.length-1;
+        }
+    }
+}
+
 
 

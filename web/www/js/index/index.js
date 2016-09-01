@@ -104,7 +104,25 @@ app.controller("subscribeListCtrl",function($scope,appService,$interval){
     };*/
 
     
-    
+    $scope.refresh = function(){
+
+            var subscribeListTwo = appService.selectReservationByUser();
+            if(subscribeListTwo) {
+
+                $scope.subscribeList = subscribeListTwo.lists;
+                if(subscribeListTwo.lists){
+                    $scope.subscribeLeng = subscribeListTwo.lists.length;
+                }
+
+            }
+
+        appService.yxsApply();
+        $scope.subscribeLeng = appService.subscribeLeng;
+        $scope.roomReservation = appService.roomReservation;
+        $scope.roomReservationList = appService.roomReservationList = appService.roomReservationList;
+        $scope.roomReservationLeng = appService.roomReservationLeng
+
+    }
     
     $scope.modification = function(){
         $("#modifyImg").trigger("click");
@@ -659,7 +677,7 @@ app.factory("appService",function () {
                     rvl[rrv].toEndTime = parseInt(TET / 60 / 60) + "小时" + parseInt(TET / 60 % 60) + "分钟" + parseInt(TET % 60 ) + "秒";
                 }else{
                     if(rrv == 0){
-                        factory.addTimer(tempID, parseInt(ct),(userInfo.arriveTimeOut * 60));
+                        factory.addTimer(tempID, parseInt(ct),(userInfo.arriveTimeOut * 60));//,(userInfo.arriveTimeOut * 60)
                     }
                 }
             }
@@ -707,7 +725,7 @@ app.factory("appService",function () {
 
 
         var bean = {};
-        var lists = list.list;
+            var lists = list.list;
         if(typeof lists !="undefined" && lists.length > 0) {
             for (var l = 0; l < lists.length; l++) {
 
@@ -720,10 +738,10 @@ app.factory("appService",function () {
 
                 if( lists[l].notArrive == 1 ) {
                     lists[l].timeCn = "距离签到时间";
-                    var el = lists[l].timeid = g.mathRandom(20);
+                    var el = lists[l].timeid = lists[l].reservationId;
                     var time = _hm;
-
-                    factory.addTimer(el, parseInt(time),(userInfo.arriveTimeOut * 60)); //+
+                    lists[l].hm = "0小时0分钟0秒";
+                    factory.addTimer(el, parseInt(time),(userInfo.arriveTimeOut * 60)); //
                 }
 
                 if( lists[l].notArrive == 2 ){
@@ -731,11 +749,11 @@ app.factory("appService",function () {
                     if(lists[l].leaveFlag == 1){
 
                         lists[l].timeCn = "距离回来签到时间";
-                        lists[l].timeid = g.mathRandom(20);
+                        lists[l].timeid = lists[l].reservationId;
 
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
-
+                        lists[l].hm = "0小时0分钟0秒";
                         factory.addTimer(el, parseInt(time),0); //+
                     }
 
@@ -746,6 +764,7 @@ app.factory("appService",function () {
                         lists[l].timeid = g.mathRandom(20);
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
+                        lists[l].hm = "0小时0分钟0秒";
                         factory.addTimer(el, parseInt(time),0); //(userInfo.awayTimeIn * 60)
                     }
                     if(lists[l].leaveFlag == 3){//晚饭离开
@@ -753,7 +772,7 @@ app.factory("appService",function () {
                         lists[l].timeid = g.mathRandom(20);
                         var el = lists[l].timeid;
                         var time = lists[l].canUseMinute;
-
+                        lists[l].hm = "0小时0分钟0秒";
                         factory.addTimer(el, parseInt(time),0); //+
 
                     }
@@ -765,6 +784,7 @@ app.factory("appService",function () {
                         var Endhm = factory.contrastTime(EndTime);
                         var el = lists[l].timeid;
                         var time = Endhm;
+                        lists[l].hm = "0小时0分钟0秒";
                         factory.addTimer(el, parseInt(time) , 0);
                     }
                 }
@@ -798,7 +818,11 @@ app.factory("appService",function () {
 
         function go() {
             for (var i = 0; i < list.length; i++) {
-                $("#"+list[i].ele).html(getTimerString(list[i].time ? list[i].time -= 1 : 0  , list[i].outTime ,list[i].id));
+                var _ele = list[i].ele;
+                $("#"+_ele).html(getTimerString(list[i].time ? list[i].time -= 1 : 0  , list[i].outTime ,i));
+                if(list.length == 0){
+                    break;
+                }
                 if (!list[i].time)
                     list.splice(i--, 1);
             }
@@ -816,7 +840,7 @@ app.factory("appService",function () {
                 m = Math.floor((time %= 3600) / 60),
                 s = time % 60;
             if (not0){
-                return  h + "小时" + m + "分" + s + "秒";
+                return  h + "小时" + m + "分钟" + s + "秒";
             }else{
                 if(time <= 0 && parseInt(-time) >= outTime ){
                     console.log("outTime:"+outTime);
@@ -827,6 +851,7 @@ app.factory("appService",function () {
                     try {
 
                         controllerScope.$apply(function () {
+
                             subscribeListTwo = factory.selectReservationByUser();
                             if (subscribeListTwo) {
                                 controllerScope.subscribeList = subscribeListTwo.lists;
@@ -843,6 +868,7 @@ app.factory("appService",function () {
 
                         });
                     }catch (e){
+
                         subscribeListTwo = factory.selectReservationByUser();
                         if (subscribeListTwo) {
                             controllerScope.subscribeList = subscribeListTwo.lists;
@@ -859,6 +885,7 @@ app.factory("appService",function () {
                         console.log(e);
                     }
                     if(!flag){
+
                         subscribeListTwo = factory.selectReservationByUser();
                         if (subscribeListTwo) {
                             controllerScope.subscribeList = subscribeListTwo.lists;
@@ -873,7 +900,7 @@ app.factory("appService",function () {
                         controllerScope.roomReservationLeng = factory.roomReservationLeng;
                         flag = true;
                     }
-                    if(!!subscribeListTwo && flag){
+                    if(flag){
                         list.remove(id);
                     }
                 }
@@ -883,7 +910,8 @@ app.factory("appService",function () {
     } ();
 
 
-
+    
+        
 
 
 
