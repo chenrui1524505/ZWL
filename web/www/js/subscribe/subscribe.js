@@ -536,7 +536,7 @@ $(document).ready(function(){
         var studyLounge = $("#studyLoungeName option");
 
         if(studyLounge.length > 0){
-            fontWidth(studyLounge);
+            //fontWidth(studyLounge);
             for(var lb = 0 ; lb < studyLounge.length ; lb++){
                 if(cookie_subscribeDate) {
                     if (studyLounge[lb].value == cookie_subscribeDate.studyLoungeVal) {
@@ -590,7 +590,7 @@ $(document).ready(function(){
         console.log("a");
         var select_RR = $('#select_RR option');
         if(select_RR.length > 0){
-            fontWidth(select_RR);
+            //fontWidth(select_RR);
             if(select_RR.length > 2){
                 $(select_RR[0]).prop("selected", 'selected');
                 ri = $(select_RR[0]).val();
@@ -609,7 +609,7 @@ $(document).ready(function(){
         ri = null;
         var studyLoungeName = $('#studyLoungeName option');
         if(studyLoungeName.length > 0){
-            fontWidth(studyLoungeName);
+            //fontWidth(studyLoungeName);
             if(studyLoungeName.length > 2){
                 $(studyLoungeName[0]).prop("selected", 'selected');
                 ri = $(studyLoungeName[0]).val();

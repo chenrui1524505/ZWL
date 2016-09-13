@@ -46,7 +46,7 @@
 								<div class="select form">
 									<select id="studyLoungeName" >
 										<option value="" selected>请选择自习室</option>
-										<option ng-repeat="sl in studyLounge" floor="{{sl.floor}}" value="{{sl.classroomId}}"ng-bind="sl.classroomNum+'【'+sl.floor+'层】'"> </option><!--classroomId-->
+										<option ng-repeat="sl in studyLounge" floor="{{sl.floor}}" value="{{sl.classroomId}}"ng-bind="'【'+sl.floor+'层】'+sl.classroomNum"> </option><!--classroomId-->
 									</select>
 								</div>
 							</div>
@@ -64,9 +64,9 @@
 							<div class="form-line">
 								<span class="tag">研修室</span>
 								<div class="select form">
-									<select id="select_RR"  ng-model="select_RR" ng-options="RR.id as RR.name+'【'+RR.floor+'层】'  for RR in ResearchRoom"  ng-change="RR_change(select_RR)">
+									<select id="select_RR"  ng-model="select_RR"  ng-change="RR_change(select_RR)">
 										<option value="" >请选择研修室</option>
-										<option ng-repeat="RR in ResearchRoom"  value="{{RR.id}}" ng-bind="RR.name"></option>
+										<option ng-repeat="RR in ResearchRoom"  value="{{RR.id}}" ng-bind="'【'+RR.floor+'层】' + RR.name"></option>
 									</select>
 								</div>
 							</div>
