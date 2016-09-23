@@ -137,6 +137,15 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
 
         }
 
+        //如果只有一个图书馆，默认查询第一个教室
+        if(RR && RR.length == 1){
+            subscribeService.first_BuildingResearch = RR[0].buildingId;
+            var re_rr = subscribeService.ResearchRoom();
+            $scope.ResearchRoom = re_rr;
+            $scope.RR_change();
+
+        }
+
         $scope.peopleChange = function(arg){
             subscribeService.rr_bean.totalPeople = arg;
             subscribeService.peopleNum = arg;
