@@ -128,7 +128,8 @@ subscribeApp.controller("CampusAndBuildingCtrl",function($scope,subscribeService
                 subscribeService.tipsfather = tipsfather;
 
             }else{
-                subscribeService.day_YXS = subscribeService.y_day =  1;
+                //没有选中类型的时候会产生冲突
+                //subscribeService.day_YXS = subscribeService.y_day =  1;
                 //根据研修室 更新日期
                 $scope.subscribeDate = subscribeService.getDate();
                 tipsfather.hide();
