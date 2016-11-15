@@ -227,7 +227,7 @@ subscribeApp.controller("ChooseSeatCtrl",function ($scope,subscribeService) {
 
         var si = subscribeService.selectedInfo;
 
-        subscribeService.rr_bean.roomedName = g.Trim(si.name,"g");;
+        subscribeService.rr_bean.roomedName = g.Trim(si.name,"g");
 
         var totalPeople = subscribeService.rr_bean.totalPeople;
         if(!totalPeople){
@@ -255,6 +255,15 @@ subscribeApp.controller("ChooseSeatCtrl",function ($scope,subscribeService) {
             subscribeService.alertError("请至少选择一个日期！");
             return false;
         }
+
+        //判断是否超过规定连续预约天数   ----------2016年11月11日09:50:09 lix
+        var reservationDate = subscribeService.rr_bean.reservationDate;
+        var strs = reservationDate.split(",");
+        if(strs.length> parseInt(si.reservationDaymax)){
+            subscribeService.alertError("抱歉，连续预约规定的天数为：" + si.reservationDaymax + "天");
+            return false;
+        }
+
 
         subscribeService.rr_bean.type = "researchRoom";
 
