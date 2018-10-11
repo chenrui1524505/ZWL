@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class WeChatApi {
 
-    private static final String AppID = "wxc13823a96ab80a9b";
-    private static final String AppSecret = "b6319aa98e47ac78871da7231041bd3b";
+    private static final String AppID = "wxdd532663f8343d52";
+    private static final String AppSecret = "6afff4a0c4484cdb30044c63fa0aa7cc";
     private static final String grant_type = "client_credential";
 
     /**

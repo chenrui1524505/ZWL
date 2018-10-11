@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ZWL">
+    <output-path>E:/ideaWorkspaces1/ZWL.C1/web/WEB-INF/classes/artifacts/ZWL_cr</output-path>
+    <root id="archive" name="ZWL.war">
+      <element id="dir-copy" path="E:/ideaWorkspaces1/ZWL.C1/web" />
+    </root>
+  </artifact>
+</component>
